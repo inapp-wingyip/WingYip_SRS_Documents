@@ -2,6 +2,21 @@
 
 > Central knowledge base for the WingYip Stock Replenishment System (SRS).
 
+
+---
+
+## AI Native Development Quick Links
+
+This repository is part of the WingYip AI Native monorepo.
+
+- **AI Native Hub**: `../WingYip_SRS_AI_Native/`
+- **Shared Docs**: `../WingYip_SRS_Documents/AI_Native/`
+- **SDD Pipeline**: `../WingYip_SRS_Documents/AI_Native/workflow/sdd-pipeline.md`
+- **OpenSpec Config**: `.openspec/config.yaml` (repo-local)
+- **Project Specs**: `PROJECT.md` (repo-local)
+
+---
+
 ## Overview
 
 This repository contains all architecture docs, LLDs, BRDs, FRDs, design documents, infrastructure guides, and project management artifacts for the WingYip SRS ecosystem.

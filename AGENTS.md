@@ -2,6 +2,46 @@
 
 > **Cross-repository reference** — Links each WingYip repository to relevant project documentation.
 
+
+---
+
+## AI Native Development
+
+This repository follows the **AI Native Development** methodology. Shared policy lives in the central docs — load only what the current task needs.
+
+### Invariants
+
+1. **No code is written before a spec exists and has been reviewed.** See `../WingYip_SRS_Documents/AI_Native/workflow/sdd-pipeline.md` for exceptions and the full pipeline. If in doubt, treat it as spec-required.
+2. **Every Acceptance Criterion in any `spec.md` must have at least one executable verification artifact that fails when the AC's `THEN` clause is violated.** See `../WingYip_SRS_Documents/AI_Native/workflow/acceptance-criteria.md` for the full policy.
+
+### Router — load docs on demand
+
+| Topic | File | When to read |
+|---|---|---|
+| SDD pipeline & exceptions | `../WingYip_SRS_Documents/AI_Native/workflow/sdd-pipeline.md` | Starting any feature/fix/refactor |
+| Skills catalog | `../WingYip_SRS_Documents/AI_Native/workflow/skills-catalog.md` | Choosing which skill to invoke |
+| OpenSpec artifacts & delta-spec rules | `../WingYip_SRS_Documents/AI_Native/workflow/openspec-artifacts.md` | Creating, validating, or archiving a change |
+| AC verification policy | `../WingYip_SRS_Documents/AI_Native/workflow/acceptance-criteria.md` | Writing or reviewing ACs |
+| Microservice patterns & defaults | `../WingYip_SRS_Documents/AI_Native/architecture/microservice-patterns.md` | Writing specs touching service boundaries |
+| ADR discipline | `../WingYip_SRS_Documents/AI_Native/architecture/adr-discipline.md` | Proposing, superseding, or enforcing an ADR |
+| Coding standards & commits | `../WingYip_SRS_Documents/AI_Native/standards/coding-standards.md` | Implementing tasks, writing tests, preparing commits |
+| Context hygiene | `../WingYip_SRS_Documents/AI_Native/agents/context-hygiene.md` | Running multi-step skill chains |
+| Guardrails (NOT-to-do + escalation) | `../WingYip_SRS_Documents/AI_Native/agents/guardrails.md` | Before irreversible actions or when uncertain |
+
+### Conflict resolution
+
+When instructions disagree, apply this precedence (highest wins):
+
+```
+ADR > PROJECT.md > AGENTS.md (this file) > docs/ > ../WingYip_SRS_Documents/AI_Native/
+```
+
+### When in doubt
+
+Ask the user. Do not assume. Escalation triggers are in `../WingYip_SRS_Documents/AI_Native/agents/guardrails.md`.
+
+---
+
 ---
 
 ## Repository Ecosystem

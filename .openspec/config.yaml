@@ -1,0 +1,15 @@
+# OpenSpec Configuration for WingYip_SRS_Documents
+# This config points to the shared schema and templates in WingYip_SRS_Documents
+
+schema:
+  path: "../WingYip_SRS_Documents/AI_Native/openspec/schemas/spec-driven-verified/schema.yaml"
+  
+templates:
+  proposal: "../WingYip_SRS_Documents/AI_Native/openspec/templates/proposal.md"
+  design: "../WingYip_SRS_Documents/AI_Native/openspec/templates/design.md"
+  spec: "../WingYip_SRS_Documents/AI_Native/openspec/templates/spec.md"
+  tasks: "../WingYip_SRS_Documents/AI_Native/openspec/templates/tasks.md"
+  verification: "../WingYip_SRS_Documents/AI_Native/openspec/templates/verification.md"
+  adr: "../WingYip_SRS_Documents/AI_Native/openspec/templates/adr.md"
+
+changesDir: "./changes"

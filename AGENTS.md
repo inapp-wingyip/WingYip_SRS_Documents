@@ -49,7 +49,7 @@ Ask the user. Do not assume. Escalation triggers are in `../WingYip_SRS_Document
 ```
 C:\Projects\WingYip\
 ├── WingYip_SRS_Documents/               ← YOU ARE HERE (Knowledge Hub)
-├── WingYip_Legacy/             ← Legacy monolith (ASP.NET MVC + EF Core)
+├── WingYip_Legacy/             ← Legacy monolith — READ-ONLY reference archive (not part of active development)
 ├── WingYip_SRS_Artifacts/       ← Shared artifacts
 ├── WingYip_SRS_BE_EcoSystem/   ← Backend microservices (14 services: 11 API + 3 engines)
 ├── WingYip_SRS_FE_EcoSystem/   ← Frontend web application (React + RSBuild — active code on `development`)

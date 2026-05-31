@@ -52,7 +52,7 @@ WingYip_SRS_Documents/
 │   ├── 07-frontend-mobile-architecture.md   ← Web + Android HHD architecture
 │   ├── 08-database-schema.md        ← DB per service, table mapping
 │   ├── 09-sel-printing-detail.md    ← SEL printing, Crystal Reports, print UI
-│   ├── 10-legacy-migration.md       ← Legacy system, active monolith (migration in progress)
+│   ├── 10-legacy-migration.md       ← Legacy system reference (read-only archive, not active)
 │   ├── 11-coding-standards.md       ← C# conventions, CQRS, EF Core, RBAC hierarchy (links to BE repo)
 │   ├── 12-error-logging-observability.md ← Serilog, ELK, centralized auditing, error patterns
 │   ├── 13-security-standards.md     ← Network security, data protection, OWASP, Kerberos SSO (planned)

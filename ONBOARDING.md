@@ -30,7 +30,7 @@ WingYip SRS is an **on-premise enterprise stock replenishment system** for a UK 
 | `WingYip_SRS_HH_EcoSystem/` | React Native HHD | [HH AGENTS.md](../WingYip_SRS_HH_EcoSystem/AGENTS.md) |
 | `WingYip_SRS_DE_EcoSystem/` | SSIS ETL pipelines | [DE AGENTS.md](../WingYip_SRS_DE_EcoSystem/AGENTS.md) |
 | `WingYip_SRS_Infrastructure/` | K8s, ArgoCD, Keycloak | [Infra AGENTS.md](../WingYip_SRS_Infrastructure/AGENTS.md) |
-| `WingYip_Legacy/` | Legacy monolith (active, migration in progress) | [Legacy AGENTS.md](../WingYip_Legacy/AGENTS.md) |
+| `WingYip_Legacy/` | Legacy monolith — **READ-ONLY reference archive** | [Legacy AGENTS.md](../WingYip_Legacy/AGENTS.md) |
 | `WingYip_SRS_Artifacts/` | Shared artifacts (placeholder) | [Artifacts AGENTS.md](../WingYip_SRS_Artifacts/AGENTS.md) |
 | `WingYip_SRS_UI_EcoSystem/` | Design system (placeholder) | [UI AGENTS.md](../WingYip_SRS_UI_EcoSystem/AGENTS.md) |
 

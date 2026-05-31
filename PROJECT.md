@@ -59,10 +59,17 @@ WingYip_SRS_Documents/
 | LLDs | LLD/ | Technical designs per service |
 | Runbooks | Runbooks/ | Operational procedures |
 | AI Native | AI_Native/ | Shared AI Native development standards |
+| **ADRs** | `docs/adr/` | **61 Architecture Decision Records** |
 
 ---
 
-## 5. Cross-Repo References
+## 5. ADR Quick Reference
+
+All Architecture Decision Records live in `docs/adr/`. See the complete index in [docs/adr/README.md](docs/adr/README.md).
+
+---
+
+## 6. Cross-Repo References
 
 All other WingYip repos reference this repository for:
 - Architecture decisions
@@ -76,4 +83,7 @@ All other WingYip repos reference this repository for:
 
 | Date | Change | Author |
 |---|---|---|
+| 2026-05-31 | Added ADR-040 through ADR-061 documenting 84+ uncovered architectural decisions | AI Native Setup |
+| 2026-05-31 | Fixed ADR-004 (HAProxy reality), removed phantom BE-ADR references, clarified WingYip_Legacy as READ-ONLY | AI Native Setup |
+| 2026-05-30 | Created ADR-001 through ADR-039 covering microservices, security, messaging, frontend, DE, infrastructure | AI Native Setup |
 | 2026-05-30 | Initial PROJECT.md for AI Native setup | AI Native Setup |

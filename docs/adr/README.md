@@ -43,7 +43,7 @@ This directory contains all Architecture Decision Records for the WingYip SRS ec
 | [ADR-026](ADR-026-redis-distributed-caching.md) | Redis Distributed Caching | Caching |
 | [ADR-030](ADR-030-global-exception-handling.md) | Global Exception Handling with Mapped HTTP Status | Error Handling |
 | [ADR-031](ADR-031-cqrs-mediatr-automapper.md) | CQRS with MediatR and AutoMapper | Architecture |
-| [ADR-044](ADR-044-ef6-efcore-coexistence.md) | EF6 and EF Core Coexistence in Same Solution | Data Access |
+| [ADR-044](ADR-044-ef-core-as-sole-orm.md) | EF Core 8.0.22 as Sole ORM | Data Access |
 | [ADR-045](ADR-045-argon2id-ldap-integration.md) | Argon2id Password Hashing and AD LDAP Integration | Security |
 | [ADR-046](ADR-046-api-audit-correlation-id-observability.md) | API Audit and Correlation ID Observability | Observability |
 | [ADR-047](ADR-047-questpdf-skiasharp-document-label-generation.md) | QuestPDF and SkiaSharp Document/Label Generation | Documents |

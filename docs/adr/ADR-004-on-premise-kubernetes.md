@@ -22,10 +22,11 @@ We will deploy on **Kubernetes (K8s)** on-premise with **ArgoCD** for GitOps-dri
 1. **Kubernetes Cluster**: On-premise K8s cluster for container orchestration
 2. **ArgoCD**: GitOps controller that watches Git repositories and syncs desired state to the cluster
 3. **Jenkins Integration**: Jenkins builds Docker images and updates Git tags; ArgoCD detects changes and deploys
-4. **Helm Charts**: Each service packaged as a Helm chart stored in Git
-5. **Namespace-per-Environment**: Separate namespaces for dev, QA, staging, production
-6. **Ingress Controller**: NGINX ingress for external traffic routing
-7. **Monitoring**: Prometheus + Grafana for cluster and application metrics
+4. **Kustomize for Applications**: Application services packaged as Kustomize manifests (base + environment overlays) stored in Git
+5. **Helm for Infrastructure**: Infrastructure components (Jenkins, ArgoCD, Harbor, ELK, Jaeger, Prometheus, Kafka, RabbitMQ) deployed via Helm charts
+6. **Namespace-per-Environment**: Separate namespaces for dev, QA, staging, production
+7. **Ingress Controller**: HAProxy ingress controller for external traffic routing (NGINX ingress retained for Keycloak only)
+8. **Monitoring**: Prometheus + Grafana for cluster and application metrics
 
 ## Consequences
 
@@ -42,9 +43,11 @@ We will deploy on **Kubernetes (K8s)** on-premise with **ArgoCD** for GitOps-dri
 - Network complexity (CNI, service mesh considerations)
 - Storage management for stateful workloads (SQL Server, RabbitMQ)
 - Windows container support is more complex than Linux
+- Dual ingress controllers (HAProxy + NGINX) increase operational complexity and require expertise in both
 
 **Future constraints:**
 - Any deployment target change (e.g., cloud migration) requires a new ADR
-- New services must include K8s manifests and Helm charts from day one
+- New application services must include Kustomize manifests from day one
+- New infrastructure components may use Helm if they fit the infrastructure pattern
 - All environment configuration must be in Git (no manual cluster changes)
 - Service mesh adoption (e.g., Istio) would require a new ADR

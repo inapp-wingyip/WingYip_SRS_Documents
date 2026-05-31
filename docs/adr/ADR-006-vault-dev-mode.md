@@ -1,4 +1,4 @@
-# ADR-007. HashiCorp Vault in Development Mode
+# ADR-006. HashiCorp Vault in Development Mode
 
 - **Status:** accepted
 - **Date:** 2026-05-31

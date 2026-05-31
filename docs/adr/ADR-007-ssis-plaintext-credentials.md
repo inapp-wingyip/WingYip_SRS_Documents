@@ -1,4 +1,4 @@
-# ADR-008. SSIS Service Account Credentials in Plaintext
+# ADR-007. SSIS Service Account Credentials in Plaintext
 
 - **Status:** accepted
 - **Date:** 2026-05-31
@@ -6,13 +6,17 @@
 
 ## Context
 
-The WingYip SRS Data Engineering ecosystem uses SQL Server Integration Services (SSIS) for ETL pipelines implementing a Bronze/Silver medallion architecture. SSIS packages connect to SQL Server databases using the `sa` (system administrator) account.
+The WingYip SRS platform has a critical security vulnerability: the SQL Server `sa` (system administrator) account password is stored in plaintext across multiple locations in source control.
 
-**Critical Finding**: The `sa` account password (`1n9pp2.0@123`) is stored as a non-sensitive parameter in `Silver_Layer_ETL/Project.params` with `Sensitive="0"` and is committed to version control. This password grants full sysadmin privileges across all SQL Server instances.
+**Critical Finding**: The `sa` account password (`1n9pp2.0@123`) is committed to version control in multiple files across the entire backend ecosystem, not just in SSIS packages. This password grants full sysadmin privileges across all SQL Server instances.
 
-The password appears in:
-- `Silver_Layer_ETL/Silver_Layer_ETL/Project.params`
-- `Silver_Layer_ETL/Silver_Layer_ETL/obj/Development/Project.params`
+**Scope of exposure:**
+- **SSIS packages**: `Silver_Layer_ETL/Project.params` (non-sensitive parameter with `Sensitive="0"`)
+- **Backend microservices**: 36 `appsettings.json` and `appsettings.Development.json` files across 14+ services (Administration, Audit, Authentication, BulkReplenishmentEngine, DidiReplenishmentEngine, FreshGoodsReplenishmentEngine, GenericProcessEngine, Print, Product, Replenishment, Reports, ReportEngine, Spaceman, StockControl, StoreOperations)
+- **Test projects**: Connection strings in test base classes
+- **Staging configs**: `appsettings.Staging.json` files
+
+This is a platform-wide credential leak, not limited to the Data Engineering ecosystem.
 
 ## Decision
 

@@ -14,7 +14,12 @@ Every service layer (Data, Service, Client) across the WingYip SRS backend ecosy
 - **Symbol packages**: `.snupkg` files are included for debugging support
 - **Package registry**: GitHub Packages (private feed)
 
-**Security concern:** The `nuget.config` file contains a plaintext GitHub Personal Access Token (PAT) for package feed authentication. The `package_command.txt` file contains multiple PAT tokens used for publishing. Both files are present in source control, exposing credentials.
+**Security concern:** Multiple files across the backend codebase contain plaintext GitHub Personal Access Tokens (PATs) for package feed authentication and publishing:
+- `WingYip.SRS.Core/WingYip.SRS.Service/nuget.config` — PAT in `ClearTextPassword` field
+- `WingYip.SRS.GenericProcessEngine/package_command.txt` — PAT in `dotnet nuget push` commands
+- `WingYip.SRS.Administration/WingYip.SRS.Service/nuget_command.txt` — PAT in `dotnet nuget push` command
+
+These tokens are present in source control, exposing credentials. The actual token value is redacted from this document.
 
 **Coupling concern:** When the Core library is updated, every consuming service must independently update its package reference. There is no automated mechanism to propagate Core library updates across all services.
 

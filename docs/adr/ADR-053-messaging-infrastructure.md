@@ -42,7 +42,7 @@ We deploy both RabbitMQ and Kafka clusters, using RabbitMQ exclusively for activ
 
 ## Related ADRs
 
-- ADR-010: Dual messaging (RabbitMQ + Kafka deployment rationale)
+- ADR-009: Raw RabbitMQ client (no MassTransit/Cap)
 - ADR-009: Raw RabbitMQ client (no MassTransit/Cap)
 - ADR-031: CQRS with MediatR and AutoMapper (event-driven architecture)
 

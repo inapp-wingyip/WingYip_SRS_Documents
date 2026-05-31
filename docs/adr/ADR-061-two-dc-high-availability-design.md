@@ -13,7 +13,7 @@ The `TWO_DC_APPLICATION_CICD_INTEGRATION_DESIGN.md` document describes a compreh
 - **Stacked etcd** — etcd clusters co-located with Kubernetes control plane nodes
 - **HAProxy pair per DC** — Load balancers providing traffic distribution and failover
 - **RabbitMQ mirror queue** — Message queue replication between datacenters for reliable delivery
-- **PostgreSQL streaming replication** — Database replication for data consistency across DCs
+- **PostgreSQL streaming replication** — Keycloak identity database replication (the only PostgreSQL instance in the architecture; service databases are SQL Server per ADR-002)
 
 **Current status:**
 - The design is documented in `TWO_DC_APPLICATION_CICD_INTEGRATION_DESIGN.md`
@@ -28,7 +28,7 @@ We deploy a two-datacenter high availability architecture with stacked etcd, mir
 2. **Stacked etcd**: etcd co-located with control plane nodes — reduces infrastructure but couples etcd health to node health
 3. **HAProxy pair per DC**: Active-passive or active-active load balancers for traffic distribution
 4. **RabbitMQ mirror queue**: Messages replicated between DCs to prevent data loss during failover
-5. **PostgreSQL streaming replication**: Primary in DC1, standby in DC2 with streaming WAL replication
+5. **PostgreSQL streaming replication**: Keycloak PostgreSQL only — primary in DC1, standby in DC2 with streaming WAL replication. Service databases (SQL Server per ADR-002) are not covered by this replication and require separate HA strategy.
 
 ## Consequences
 
@@ -36,14 +36,14 @@ We deploy a two-datacenter high availability architecture with stacked etcd, mir
 - **High availability**: Application remains available if one datacenter fails
 - **Disaster recovery**: Data replication ensures no data loss during DC failover
 - **RabbitMQ mirror queues** prevent message loss during failover — critical for replenishment and order workflows
-- **PostgreSQL streaming replication** provides near-real-time data synchronization with low replication lag
+- **PostgreSQL streaming replication** provides near-real-time data synchronization for Keycloak identity data with low replication lag
 - **HAProxy pairs** enable automatic traffic failover between datacenters
 
 **Negative:**
 - **Complex networking**: Two-DC networking requires careful DNS, firewall, and routing configuration
 - **Split-brain risk with stacked etcd**: If network partition occurs between DCs, etcd quorum may be lost — stacked etcd is more vulnerable than external etcd clusters
 - **Significant infrastructure overhead**: 3 control-plane nodes per DC, HAProxy pairs, and replication infrastructure doubles operational complexity
-- **PostgreSQL failover is manual or requires additional tooling** (e.g., Patroni) — streaming replication alone does not provide automatic failover
+- **PostgreSQL failover is manual or requires additional tooling** (e.g., Patroni) — streaming replication alone does not provide automatic failover; SQL Server service databases require separate Always On or failover cluster instances
 - **RabbitMQ mirror queues** have performance overhead and require careful queue configuration to avoid excessive cross-DC traffic
 
 **Future constraints:**

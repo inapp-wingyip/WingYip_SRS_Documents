@@ -1,4 +1,4 @@
-# ADR-009. NodePort Service Exposure Pattern
+# ADR-008. NodePort Service Exposure Pattern
 
 - **Status:** accepted
 - **Date:** 2026-05-31

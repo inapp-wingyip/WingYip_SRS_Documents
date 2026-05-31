@@ -61,7 +61,7 @@ We use dual HTTP client implementations with a factory pattern, and defer gRPC t
 
 ## Related ADRs
 
-- ADR-010: Custom WebSocket (real-time communication)
+- ADR-011: Custom WebSocket (real-time communication)
 - ADR-004: On-Premise Kubernetes (service discovery)
 
 ## Key files

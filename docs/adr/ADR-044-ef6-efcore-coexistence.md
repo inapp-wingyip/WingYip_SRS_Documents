@@ -1,52 +1,49 @@
-# ADR-044. EF6 and EF Core Coexistence in Same Solution
+# ADR-044. EF6 Package Reference Removal — Phantom Dependency Cleanup
 
 - **Status:** accepted
 - **Date:** 2026-05-31
-- **Supersedes:** N/A
+- **Supersedes:** Previous draft of ADR-044 (EF6 and EF Core Coexistence)
 
 ## Context
 
-The WingYip SRS backend solution targets .NET 8 but contains references to both EntityFramework 6.5.1 (EF6) and EF Core 8.0.22. This dual-ORM situation arose from migrating legacy repositories from the WingYip Legacy monolith while building new repositories with EF Core.
+The `WingYip.SRS.Core` project referenced `EntityFramework` 6.5.1 alongside `Microsoft.EntityFrameworkCore` 8.0.22. Four source files contained `using System.Data.Entity` or `using System.Data.Entity.Infrastructure` imports:
 
-**EF6 usage (legacy):**
-- `OverStockRepository` — uses `System.Data.Entity`
-- `StoreLocationRepository` — uses `System.Data.Entity`
-- `GNFRUniformRepository` — uses `System.Data.Entity`
-- `PutAwayService` — uses `System.Data.Entity`
+- `OverStockRepository.cs` (StockControl)
+- `StoreLocationRepository.cs` (Product)
+- `GNFRUniformRepository.cs` (Product)
+- `PutAwayService.cs` (Replenishment)
 
-**EF Core usage (current):**
-- All other repositories use EF Core 8.0.22 via `SRSDbContext`
-- Standard ORM for new development
+**Investigation found:**
+- The `using` statements were **dead imports** — no EF6 API (`ObjectContext`, `DbModelBuilder`, `DbEntityValidationException`, etc.) was ever called
+- All data access goes through `Repository<T>` in `WingYip.SRS.Core`, which is **100% EF Core**
+- `SRSDbContext`, `EFConnectionFactory`, and `DbContextOptionsBuilder` are all EF Core implementations
+- The imports were stale leftovers from when these files were copied from the WingYip Legacy monolith
 
-**BaseRepository consideration:** The `BaseRepository` class contains commented-out Dapper methods, suggesting a third ORM (micro-ORM via Dapper) was considered but not adopted. This indicates the team evaluated multiple data access strategies before settling on the current dual-ORM approach.
-
-**Risk:** Running both EF6 and EF Core in the same process can cause transaction and connection conflicts, as each ORM manages its own `DbContext`/`ObjectContext` and connection lifecycle independently.
+**Conclusion:** EF6 was a phantom dependency — referenced but never executed.
 
 ## Decision
 
-We continue the dual ORM strategy: EF6 for legacy repositories that were migrated from the monolith, and EF Core for all new development. No immediate rewrite of EF6 repositories is planned.
+1. Remove the `EntityFramework` 6.5.1 package reference from `Core.csproj`
+2. Remove the 4 dead `using System.Data.Entity` / `System.Data.Entity.Infrastructure` imports
+3. Do **not** introduce EF6 references in new code
+4. All data access remains on EF Core 8.0.22
 
 ## Consequences
 
 **Positive:**
-- Gradual migration is possible — EF6 repositories can be rewritten to EF Core incrementally
-- No immediate rewrite required — legacy functionality continues to work
-- Risk of regression is limited to the specific repositories being migrated
+- Eliminates phantom dependency — one fewer package to maintain and audit
+- Removes false signal that the project uses dual ORMs
+- Reduces deployment footprint by ~2.5 MB
+- Eliminates confusion for new developers
+- No runtime behavior change — EF6 APIs were never called
 
 **Negative:**
-- **Transaction/connection conflicts** — EF6 and EF Core manage connections independently, risking conflicts in shared transactions
-- **Developer confusion** — new developers must determine which ORM to use for each repository
-- **Dual context tracking** — two different `DbContext` types increase cognitive load and debugging complexity
-- **Migration path unclear** — no documented plan or timeline for EF6-to-EF-Core migration
-- **Package bloat** — both EF6 and EF Core packages increase deployment size
-- **Commented-out Dapper code** in `BaseRepository` suggests abandoned alternatives, adding noise
+- None. The removed code was unreachable.
 
 **Future constraints:**
-- Document which repositories use EF6 and which use EF Core
-- Create a migration plan for converting EF6 repositories to EF Core
-- Avoid introducing new EF6 repositories — all new data access must use EF Core
-- Consider removing commented-out Dapper methods from `BaseRepository`
-- Evaluate whether EF6 repositories can share the same database connection as EF Core contexts
+- Continue using EF Core exclusively for all data access
+- When migrating legacy code, strip EF6 imports during porting
+- Maintain the `Repository<T>` abstraction to keep ORM choice centralized in Core
 
 ## Related ADRs
 
@@ -55,9 +52,8 @@ We continue the dual ORM strategy: EF6 for legacy repositories that were migrate
 
 ## Key files
 
-- `Core.csproj`
-- `OverStockRepository.cs`
-- `StoreLocationRepository.cs`
-- `GNFRUniformRepository.cs`
-- `PutAwayService.cs`
-- `BaseRepository.cs`
+- `WingYip.SRS.Core.csproj` — package reference removed
+- `OverStockRepository.cs` — dead import removed
+- `StoreLocationRepository.cs` — dead import removed
+- `GNFRUniformRepository.cs` — dead import removed
+- `PutAwayService.cs` — dead import removed

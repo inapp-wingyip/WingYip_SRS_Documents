@@ -3,7 +3,7 @@
 
 schema:
   path: "../WingYip_SRS_Documents/AI_Native/openspec/schemas/spec-driven-verified/schema.yaml"
-
+  
 templates:
   proposal: "../WingYip_SRS_Documents/AI_Native/openspec/templates/proposal.md"
   design: "../WingYip_SRS_Documents/AI_Native/openspec/templates/design.md"

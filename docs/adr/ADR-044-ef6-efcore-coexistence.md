@@ -1,49 +1,34 @@
-# ADR-044. EF6 Package Reference Removal — Phantom Dependency Cleanup
+# ADR-044. EF Core 8.0.22 as Sole ORM
 
 - **Status:** accepted
 - **Date:** 2026-05-31
-- **Supersedes:** Previous draft of ADR-044 (EF6 and EF Core Coexistence)
 
 ## Context
 
-The `WingYip.SRS.Core` project referenced `EntityFramework` 6.5.1 alongside `Microsoft.EntityFrameworkCore` 8.0.22. Four source files contained `using System.Data.Entity` or `using System.Data.Entity.Infrastructure` imports:
+All data access in the WingYip SRS backend uses Entity Framework Core 8.0.22 via the shared `Repository<T>` abstraction in `WingYip.SRS.Core`.
 
-- `OverStockRepository.cs` (StockControl)
-- `StoreLocationRepository.cs` (Product)
-- `GNFRUniformRepository.cs` (Product)
-- `PutAwayService.cs` (Replenishment)
-
-**Investigation found:**
-- The `using` statements were **dead imports** — no EF6 API (`ObjectContext`, `DbModelBuilder`, `DbEntityValidationException`, etc.) was ever called
-- All data access goes through `Repository<T>` in `WingYip.SRS.Core`, which is **100% EF Core**
-- `SRSDbContext`, `EFConnectionFactory`, and `DbContextOptionsBuilder` are all EF Core implementations
-- The imports were stale leftovers from when these files were copied from the WingYip Legacy monolith
-
-**Conclusion:** EF6 was a phantom dependency — referenced but never executed.
+- `SRSDbContext` — EF Core `DbContext` with SaveChanges interception for audit enrichment
+- `EFConnectionFactory` — EF Core `DbContextOptionsBuilder` with SQL Server provider
+- `Repository<T>` — generic CRUD wrapper over EF Core `DbSet<T>`
 
 ## Decision
 
-1. Remove the `EntityFramework` 6.5.1 package reference from `Core.csproj`
-2. Remove the 4 dead `using System.Data.Entity` / `System.Data.Entity.Infrastructure` imports
-3. Do **not** introduce EF6 references in new code
-4. All data access remains on EF Core 8.0.22
+Entity Framework Core 8.0.22 is the **sole supported ORM** for all backend services. No other ORM is referenced or used.
 
 ## Consequences
 
 **Positive:**
-- Eliminates phantom dependency — one fewer package to maintain and audit
-- Removes false signal that the project uses dual ORMs
-- Reduces deployment footprint by ~2.5 MB
-- Eliminates confusion for new developers
-- No runtime behavior change — EF6 APIs were never called
+- Single ORM reduces cognitive load and debugging surface area
+- All services share the same `Repository<T>` pattern, connection factory, and audit interception
+- EF Core 8.0.22 is fully supported on .NET 8 with long-term support
 
 **Negative:**
-- None. The removed code was unreachable.
+- None
 
 **Future constraints:**
-- Continue using EF Core exclusively for all data access
-- When migrating legacy code, strip EF6 imports during porting
-- Maintain the `Repository<T>` abstraction to keep ORM choice centralized in Core
+- All new data access must use EF Core via `Repository<T>`
+- Direct ADO.NET or raw SQL should be avoided unless performance-critical and documented
+- No introduction of alternative ORMs without a new ADR
 
 ## Related ADRs
 
@@ -52,8 +37,6 @@ The `WingYip.SRS.Core` project referenced `EntityFramework` 6.5.1 alongside `Mic
 
 ## Key files
 
-- `WingYip.SRS.Core.csproj` — package reference removed
-- `OverStockRepository.cs` — dead import removed
-- `StoreLocationRepository.cs` — dead import removed
-- `GNFRUniformRepository.cs` — dead import removed
-- `PutAwayService.cs` — dead import removed
+- `WingYip.SRS.Core/Data/Repository.cs`
+- `WingYip.SRS.Core/Data/SRSDbContext.cs`
+- `WingYip.SRS.Core/Data/EFConnectionFactory.cs`

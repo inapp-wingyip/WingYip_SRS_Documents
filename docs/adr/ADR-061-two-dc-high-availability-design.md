@@ -1,4 +1,4 @@
-# ADR-061. Two-DC High Availability Design
+# ADR-061. Two-DC High Availability Design (Design Proposal)
 
 - **Status:** accepted
 - **Date:** 2026-05-31
@@ -6,52 +6,56 @@
 
 ## Context
 
-The `TWO_DC_APPLICATION_CICD_INTEGRATION_DESIGN.md` document describes a comprehensive two-datacenter high availability architecture for WingYip SRS. This design has been documented but not previously formalized as an ADR.
+The `TWO_DC_APPLICATION_CICD_INTEGRATION_DESIGN.md` document describes a **proposed** two-datacenter high availability architecture for WingYip SRS. **This is a design document, not a current implementation.** The current infrastructure runs a single Kubernetes cluster with single-node Redis, single-replica PostgreSQL, and standard RabbitMQ (no mirroring).
 
-**Architecture:**
-- **3 control-plane nodes per DC** — Kubernetes masters distributed across datacenters
-- **Stacked etcd** — etcd clusters co-located with Kubernetes control plane nodes
-- **HAProxy pair per DC** — Load balancers providing traffic distribution and failover
-- **RabbitMQ mirror queue** — Message queue replication between datacenters for reliable delivery
-- **PostgreSQL streaming replication** — Keycloak identity database replication (the only PostgreSQL instance in the architecture; service databases are SQL Server per ADR-002)
+**Design proposal (from `TWO_DC_APPLICATION_CICD_INTEGRATION_DESIGN.md`):**
+- **3 control-plane nodes** in a single cluster (per the design doc Section 3 — "Use a single Kubernetes production cluster with HA control plane"), NOT 3 per DC
+- **Stacked etcd** — documented in the design proposal
+- **HAProxy pair per DC** — documented as "Two HAProxy VMs (one per DC) minimum" in Section 4.1
+- **RabbitMQ mirror queue** — proposed but **not present** in actual `rabbitmq-values-final.yaml`
+- **PostgreSQL streaming replication** — proposed but **not present** in actual `postgres-statefulset.yaml` (single replica only)
 
-**Current status:**
-- The design is documented in `TWO_DC_APPLICATION_CICD_INTEGRATION_DESIGN.md`
-- Not yet formalized as an ADR — this ADR formalizes the documented design decision
-- Implementation status may vary per component
+**Current actual state:**
+- Single Kubernetes cluster with 3 control-plane nodes total
+- Single-node Redis (RDB + AOF persistence)
+- Single-replica PostgreSQL for Keycloak (no standby, no streaming replication)
+- RabbitMQ with `ha-all` policy but no cross-DC mirror queue configuration
+- HAProxy Ingress on NodePort 30880/30883 with MetalLB `10.10.80.77/32`
 
 ## Decision
 
-We deploy a two-datacenter high availability architecture with stacked etcd, mirrored queues, and streaming replication.
+We **accept the two-DC HA design as the target architecture** while acknowledging that the current infrastructure does not yet implement most of its components.
 
-1. **3 control-plane nodes per DC**: Kubernetes masters in each datacenter for local control plane availability
-2. **Stacked etcd**: etcd co-located with control plane nodes — reduces infrastructure but couples etcd health to node health
-3. **HAProxy pair per DC**: Active-passive or active-active load balancers for traffic distribution
-4. **RabbitMQ mirror queue**: Messages replicated between DCs to prevent data loss during failover
-5. **PostgreSQL streaming replication**: Keycloak PostgreSQL only — primary in DC1, standby in DC2 with streaming WAL replication. Service databases (SQL Server per ADR-002) are not covered by this replication and require separate HA strategy.
+1. **Single-cluster control plane**: The design specifies a single Kubernetes cluster with 3 control-plane nodes (not 3 per DC) — this is what currently exists
+2. **Stacked etcd**: Accepted as the etcd deployment model in the design
+3. **HAProxy pair per DC**: Accepted as the load balancer design for future DC expansion
+4. **RabbitMQ mirror queue**: **Planned but not implemented** — current config has no mirror queue setup
+5. **PostgreSQL streaming replication**: **Planned but not implemented** — current Keycloak PostgreSQL is a single StatefulSet with 1 replica
 
 ## Consequences
 
-**Positive:**
+**Positive (when implemented):**
 - **High availability**: Application remains available if one datacenter fails
 - **Disaster recovery**: Data replication ensures no data loss during DC failover
-- **RabbitMQ mirror queues** prevent message loss during failover — critical for replenishment and order workflows
-- **PostgreSQL streaming replication** provides near-real-time data synchronization for Keycloak identity data with low replication lag
+- **RabbitMQ mirror queues** (when configured) prevent message loss during failover — critical for replenishment and order workflows
+- **PostgreSQL streaming replication** (when configured) provides near-real-time data synchronization for Keycloak identity data with low replication lag
 - **HAProxy pairs** enable automatic traffic failover between datacenters
 
-**Negative:**
-- **Complex networking**: Two-DC networking requires careful DNS, firewall, and routing configuration
-- **Split-brain risk with stacked etcd**: If network partition occurs between DCs, etcd quorum may be lost — stacked etcd is more vulnerable than external etcd clusters
-- **Significant infrastructure overhead**: 3 control-plane nodes per DC, HAProxy pairs, and replication infrastructure doubles operational complexity
-- **PostgreSQL failover is manual or requires additional tooling** (e.g., Patroni) — streaming replication alone does not provide automatic failover; SQL Server service databases require separate Always On or failover cluster instances
-- **RabbitMQ mirror queues** have performance overhead and require careful queue configuration to avoid excessive cross-DC traffic
+**Negative (current gaps):**
+- **Design is not implemented**: Current infrastructure is a single-DC deployment. The two-DC design exists only on paper
+- **No RabbitMQ mirroring**: Messages are not replicated across DCs — RabbitMQ data loss during DC failure
+- **No PostgreSQL standby**: Keycloak database has no replication — single point of failure
+- **Single Redis node**: No Redis Sentinel or Cluster — cache data lost on node failure
+- **Complex networking** (when implemented): Two-DC networking requires careful DNS, firewall, and routing configuration
+- **Split-brain risk with stacked etcd**: If network partition occurs between DCs, etcd quorum may be lost
+- **Significant infrastructure overhead** (when implemented): Doubles operational complexity
 
 **Future constraints:**
-- Evaluate external etcd clusters (separate from control plane) to reduce split-brain risk
-- Implement automated PostgreSQL failover (Patroni or similar) to reduce RTO during DC failures
+- Implement RabbitMQ mirror queue configuration before DC expansion
+- Deploy PostgreSQL streaming replication (or Patroni) for Keycloak database HA
+- Evaluate external etcd clusters to reduce split-brain risk
 - Document and test DC failover procedures regularly — untested failover is unreliable failover
-- Monitor cross-DC replication lag and set alerting thresholds for unacceptable lag
-- Consider network partition detection and fencing mechanisms to prevent split-brain scenarios
+- Consider Redis Sentinel or Cluster before production HA requirement
 
 ## Related ADRs
 

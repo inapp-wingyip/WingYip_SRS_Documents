@@ -12,7 +12,7 @@ The WingYip SRS platform uses ArgoCD for GitOps-based Kubernetes deployment with
 - All ArgoCD applications are configured with `automated: { prune: true, selfHeal: true }`
 - **Prune**: ArgoCD automatically deletes Kubernetes resources that are removed from Git
 - **Self-Heal**: ArgoCD automatically reverts any manual changes made to the cluster that diverge from the Git state
-- Sync interval is 3 minutes
+- Sync interval is 3 minutes (ArgoCD default — not explicitly configured)
 - This means any resource deleted from Git is automatically removed from the cluster, and any manual `kubectl apply` or `kubectl edit` is automatically reverted
 
 **Insecure Mode:**

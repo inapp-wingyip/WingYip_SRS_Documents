@@ -10,8 +10,8 @@ The WingYip SRS handheld application (React Native 0.72 Android) runs on shared 
 
 **Inactivity Auto-Lock:**
 - 10-minute inactivity timeout triggers app lock; 1-hour session timeout forces re-authentication
-- Uses `PanResponder` to capture all touch events at root level for inactivity detection
-- `AppState` listener locks the app when backgrounded for more than 10 minutes
+- `AppState` listener + timer-based detection for inactivity tracking (backgrounding, inactivity timeout)
+- `PanResponder` in `useInactivityTracker.js` captures touch events for foreground inactivity (not at root level of `InactivityLockContext`)
 - PIN verification delegated to backend API (not local validation)
 - Navigation state preserved after unlock so users resume where they left off
 
@@ -21,7 +21,7 @@ The WingYip SRS handheld application (React Native 0.72 Android) runs on shared 
 - Permissions stored per-store in `AsyncStorage`, allowing different access per store context
 
 **WebSocket:**
-- Custom WebSocket service with exponential backoff reconnect (5 attempts, 3-second base delay)
+- Custom WebSocket service with linear backoff reconnect (5 attempts, 3-second base delay: 3s, 6s, 9s, 12s, 15s)
 - Screen-aware event filtering — only events relevant to the active screen are dispatched
 - Authentication token passed in URL query params for WebSocket handshake
 
@@ -34,9 +34,9 @@ The WingYip SRS handheld application (React Native 0.72 Android) runs on shared 
 
 We implement PanResponder-based inactivity lock, hierarchical RBAC with HOC pattern, custom WebSocket with screen-aware routing, and Honeywell scanner integration with build-time patching.
 
-1. **Inactivity lock**: PanResponder at root level captures all touch events; AppState listener for background timeout; PIN verified via backend API
+1. **Inactivity lock**: AppState listener + timers detect inactivity and background timeout; PanResponder in `useInactivityTracker.js` supplements foreground touch detection; PIN verified via backend API
 2. **RBAC**: `useModuleAccess` hook and `withModuleAccess` HOC for screen-level access control with `FULL`/`VIEW`/`NONE` levels
-3. **WebSocket**: Custom service with exponential backoff (5 attempts, 3s base), screen-aware event filtering, token in URL query params
+3. **WebSocket**: Custom service with linear backoff (5 attempts, 3s base), screen-aware event filtering, token in URL query params
 4. **Honeywell scanner**: `useHoneywellScanner` hook with UOM suffix stripping regex; post-install script patches `@angelcat` build.gradle
 
 ## Consequences
@@ -49,7 +49,7 @@ We implement PanResponder-based inactivity lock, hierarchical RBAC with HOC patt
 - Per-store RBAC permissions support multi-store operator scenarios
 
 **Negative:**
-- **PanResponder at root level** may interfere with gesture-based UI components (swipe actions, pull-to-refresh)
+- **PanResponder in useInactivityTracker.js** may interfere with gesture-based UI components (swipe actions, pull-to-refresh) when active
 - **WebSocket tokens in URL query params** are visible in server logs and proxy logs — security concern for token exposure
 - **UOM suffix stripping in hardware layer** embeds a business rule in the scanner integration, making it harder to change without touching the hook
 - **Post-install script patching** of `@angelcat` build.gradle is fragile — package updates may break the patch
@@ -58,7 +58,7 @@ We implement PanResponder-based inactivity lock, hierarchical RBAC with HOC patt
 **Future constraints:**
 - Evaluate moving WebSocket auth to protocol-level (first message after connect) instead of URL params
 - Consider extracting UOM stripping to a separate business rule layer outside the scanner hook
-- Monitor PanResponder conflicts with gesture libraries and evaluate alternatives (e.g., `onTouchEvent` on root view)
+- Monitor PanResponder conflicts with gesture libraries and evaluate alternatives (e.g., consolidating touch detection into `InactivityLockContext` root view)
 - Automate the `@angelcat` build.gradle patch detection to fail CI if the patch no longer applies cleanly
 
 ## Related ADRs

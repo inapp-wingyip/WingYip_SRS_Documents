@@ -12,7 +12,7 @@ The WingYip SRS web frontend (React 19 + RSBuild) requires state management for 
 2. **Server state**: Product catalogs, inventory data, replenishment lists, user hierarchies — all fetched from the backend API
 
 **Current implementation:**
-- **Zustand** (4 stores): `use-session-store`, `use-theme-store`, `use-app-state-store`, `use-store-selection-store`
+- **Zustand** (5 stores): `use-session-store`, `use-theme-store`, `use-app-state-store`, `use-store-selection-store`, `use-unsaved-changes-store`
 - **React Query** (`@tanstack/react-query` v5): All server-state caching, background refetching, and optimistic updates
 - **No Redux, no MobX, no Context-based state**: Zustand replaces all global state needs
 

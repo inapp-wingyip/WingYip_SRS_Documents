@@ -9,7 +9,7 @@
 The WingYip SRS backend implements a layered architecture (Controller → Service → Handler → Repository → DbContext). With 400+ API endpoints and complex business operations, a clear separation between read (query) and write (command) operations is essential for maintainability.
 
 **Current implementation:**
-- **MediatR** (v12.1.1 / v13.1.0) across 65+ project references
+- **MediatR** (v12.1.1) across 65+ project references — single version, no fragmentation
 - **318+ handlers**: Commands (write) and Queries (read) implemented as separate MediatR handlers
 - **AutoMapper**: Entity → DTO mapping happens **only in Handlers** (enforced by CRUD.md)
 - **CQRS separation**: Controllers dispatch MediatR requests; Handlers contain business logic
@@ -44,7 +44,7 @@ We use **MediatR-based CQRS** with strict layer separation:
 - New features follow predictable structure (Command/Query + Handler)
 
 **Negative:**
-- **MediatR version fragmentation**: v12.1.1 and v13.1.0 coexist — potential breaking changes between versions
+- **MediatR upgrade path**: All 65+ references use v12.1.1 exclusively — future upgrades must be coordinated across all services to avoid version mismatch
 - **No event sourcing**: Commands mutate state directly — no audit trail of state changes beyond ADR-005 audit logs
 - **No out-of-process sagas**: Distributed transactions (e.g., create order + reserve inventory) not formally managed
 - **Handler explosion**: 318+ handlers create large codebase — finding the right handler requires search
@@ -52,7 +52,7 @@ We use **MediatR-based CQRS** with strict layer separation:
 - **Memory overhead**: MediatR service locator pattern resolves handlers via DI container (performance cost vs direct instantiation)
 
 **Future constraints:**
-- Standardize on single MediatR version across all services
+- Evaluate MediatR upgrade to v13.x when all services can be updated simultaneously
 - Evaluate dedicated read models (projections) for complex search queries
 - Consider domain events for significant state changes (order placed, replenishment triggered)
 - Document handler naming conventions and organization (by feature/aggregate)

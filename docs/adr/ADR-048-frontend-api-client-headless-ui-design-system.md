@@ -17,7 +17,7 @@ The WingYip SRS frontend makes two major architectural decisions: API client man
 - No BFF (Backend-for-Frontend) or API gateway abstraction — the frontend knows the full backend service topology
 
 **Headless UI Design System:**
-- 23-component library built on `@headlessui/react` v2 with Tailwind CSS v4
+- 21-component library built on `@headlessui/react` v2 with Tailwind CSS v4
 - WingYip brand colors: Red `#b91c1c`, Gold `#d97706`
 - Components include: Input, Select, Combobox, Checkbox, Switch, Button, Modal, Popover, Menu, and more
 - Headless UI provides accessible, unstyled primitives; Tailwind provides styling
@@ -36,7 +36,7 @@ We use **Axios factory with concurrent-safe token refresh** for API communicatio
 1. **`createApiClient()`** creates per-domain Axios instances with automatic JWT injection and single-promise token refresh deduplication
 2. **Per-service base URLs** are configured in `env.ts` with hardcoded fallbacks
 3. **Headless UI v2 + Tailwind CSS v4** provides the component foundation with WingYip brand theming
-4. **23 components** form the shared design system library
+4. **21 components** form the shared design system library (accordion, alert, badge, button, checkbox, combobox, comments-modal, component-showcase, confirm-dialog, date-picker, field-helper-text, input, menu, popover, radio, select, switch, tabs, textarea, toast, tooltip)
 
 ## Consequences
 

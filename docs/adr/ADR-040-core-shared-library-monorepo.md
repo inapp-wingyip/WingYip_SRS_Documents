@@ -8,7 +8,7 @@
 
 The WingYip.SRS.Core/ directory contains 8 independently versioned shared libraries under a single solution. All 14+ microservices depend on these libraries for cross-cutting concerns such as security, caching, HTTP communication, WebSocket management, reporting, print queue coordination, and unit testing infrastructure.
 
-**Libraries and current versions:**
+**Libraries and current versions (point-in-time snapshot — versions drift independently across services):**
 
 | Library | Version | Purpose |
 |---------|---------|---------|

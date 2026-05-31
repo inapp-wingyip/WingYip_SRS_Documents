@@ -13,7 +13,7 @@ The WingYip SRS backend requires scheduled and continuous background processing 
 - Polling engines (Replenishment calculations every 10 seconds)
 
 **Current state:**
-- **Quartz.NET**: Used for cron-scheduled jobs (Product, Spaceman). Jobs persisted via Quartz job store.
+- **Quartz.NET**: Used for cron-scheduled jobs (Product, Spaceman). Jobs persisted via Quartz job store. Version drift exists: Product.Service uses Quartz 3.17.1, Spaceman.Service uses Quartz 3.15.1.
 - **BackgroundService**: Used for message consumers (`AuditConsumer`, `PrintSubscriberService`) and polling engines (`ReplenishmentEngineService`). ~20+ implementations across 10 services.
 - **No Hangfire**: No Hangfire or similar dashboard-backed job scheduler
 - **No Quartz for consumers**: Message-driven consumers use `while (!stoppingToken)` loops with `Task.Delay`

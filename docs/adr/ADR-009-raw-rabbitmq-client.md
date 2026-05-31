@@ -9,7 +9,7 @@
 The WingYip SRS backend uses RabbitMQ as its primary message broker for cross-service communication (audit events, print jobs, replenishment notifications). When the platform was built, a decision was made to use the raw `RabbitMQ.Client` library (v7.2.0) rather than a higher-level abstraction like MassTransit or NServiceBus.
 
 **Current state:**
-- 15+ projects reference `RabbitMQ.Client` directly
+- ~8 .csproj files directly reference `RabbitMQ.Client`; ~15 total files (including source files) contain `RabbitMQ.Client` usage
 - All messaging infrastructure is hand-built: connection management, JSON serialization, exchange/queue declaration, consumer ack/nack handling, error handling, dead-letter configuration
 - Zero references to MassTransit, NServiceBus, or EasyNetQ
 - ~600+ lines of custom consumer code across `PrintSubscriberService`, `AuditConsumer`, and `RabbitMqPublisher`
@@ -48,7 +48,7 @@ We will continue using **raw `RabbitMQ.Client`** for all RabbitMQ messaging:
 - Every consumer reimplements connection recovery, exception handling, and channel management
 
 **Future constraints:**
-- Migration to MassTransit would require refactoring all 15+ consumer services
+- Migration to MassTransit would require refactoring all ~8 consumer services
 - New messaging patterns (sagas, request/response) must be built manually
 - Any RabbitMQ.Client major version upgrade requires testing all custom code paths
 - Consider MassTransit evaluation if saga orchestration or request/response patterns become requirements

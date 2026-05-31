@@ -10,7 +10,7 @@ The WingYip SRS web frontend supports 13 distinct business capabilities (admin, 
 
 **Current implementation:**
 - `src/features/` contains 13 independent feature modules
-- Each feature follows a standardized internal structure: `pages/`, `components/`, `api/`, `hooks/`, `routes.tsx`
+- Each feature follows an internal structure that varies by feature maturity: most have `pages/`, `components/`, and some form of API/hooks (either as `api/` and `hooks/` directories or as flat `api.ts`/`hooks.ts` files), plus a `routes.tsx` (or `routes.ts`). Some features (dashboard, user-settings) are minimal and lack subdirectories entirely.
 - Feature routes are assembled centrally in `src/app/router/routes-config.tsx`
 - Cross-feature communication occurs only through shared `src/shared/` utilities
 
@@ -19,12 +19,13 @@ The WingYip SRS web frontend supports 13 distinct business capabilities (admin, 
 We adopt **vertical feature slicing** with a standardized module template:
 
 1. **Feature directory**: Each capability lives in `src/features/<feature-name>/`
-2. **Internal structure** (mandatory):
+2. **Internal structure** (recommended, not strictly enforced):
    - `pages/` — route-level page components
    - `components/` — feature-local reusable components
-   - `api/` — API client functions and React Query hooks
-   - `hooks/` — feature-local custom hooks
-   - `routes.tsx` — route definitions exported for central router assembly
+   - `api/` or `api.ts` — API client functions and React Query hooks
+   - `hooks/` or `hooks.ts` — feature-local custom hooks
+   - `routes.tsx` or `routes.ts` — route definitions exported for central router assembly
+   - Some mature features also include `types.ts`, `utils/`, `__tests__/`
 3. **Shared layer**: `src/shared/` contains cross-cutting code (components, utilities, API factory) usable by any feature
 4. **No cross-feature imports**: A feature may only import from `src/shared/`, never from another feature
 5. **Route assembly**: Central `routes-config.tsx` imports and flattens all feature route arrays

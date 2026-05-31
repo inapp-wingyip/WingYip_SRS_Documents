@@ -8,12 +8,13 @@
 
 The WingYip SRS platform uses two distinct graphics libraries for document and label generation across different services.
 
-**QuestPDF (Reporting Service):**
+**QuestPDF (Core.Reporting shared library):**
 - Used for PDF report generation (e.g., list reports, operational reports)
 - Provides a modern, composable, C#-native API for building PDF documents
 - Community license applies, which imposes revenue/usage restrictions on commercial deployments
 - Requires SkiaSharp as a rendering dependency for text and graphics
 - Docker deployments require native Linux libraries: `fontconfig`, `libfreetype6`, `fonts-liberation`
+- QuestPDF is referenced in the `Core.Reporting` shared library, not directly in the Reports service
 
 **SkiaSharp (Print Service):**
 - Used for label image generation (SEL labels, product labels)

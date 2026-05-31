@@ -20,9 +20,9 @@ The WingYip SRS platform makes three interconnected networking decisions for rou
 
 **API Gateway Path Rewriting:**
 - HAProxy Ingress uses prefix-based path rewriting to route requests to backend services
-- Environment-specific routing strategies: dev uses `/auth-service/` prefix, production uses `/api/auth/` prefix
+- Environment-specific routing strategies: dev uses **subdomain-based routing** (`administration-dev.wingyip.inapp.com`), QA uses **path-based rewriting** (`http-request replace-path`), production uses `/api/service-name/` prefix
 - Production configuration adds security headers (HSTS, X-Frame-Options, etc.) that dev does not
-- Different path rewriting rules per environment increase deployment complexity and testing burden
+- Hybrid routing model (subdomain + path-based) increases deployment complexity and testing burden
 
 **Key concerns:**
 - Two HAProxy instances double the operational maintenance surface
@@ -37,7 +37,7 @@ We use **dual HAProxy architecture with MetalLB single-IP load balancing and env
 1. **Custom HAProxy** on `k8s-node1` (hostNetwork, port 30080) routes infrastructure services
 2. **HAProxy Ingress Controller** (ports 30880/30883) routes API service traffic with path-based rewriting
 3. **MetalLB** provides a single external IP (`10.10.80.77`) via L2 advertisement
-4. **Environment-specific path rewriting**: dev uses `/service-name/` prefix, production uses `/api/service-name/` prefix
+4. **Environment-specific routing**: dev uses subdomain-based routing, QA uses path rewriting, production uses `/api/service-name/` prefix
 
 ## Consequences
 

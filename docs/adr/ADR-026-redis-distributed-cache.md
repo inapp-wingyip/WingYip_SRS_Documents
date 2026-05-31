@@ -9,7 +9,7 @@
 The WingYip SRS backend requires caching for frequently accessed data (user permissions, product catalogs, store hierarchies) to reduce database load and improve response times. With 14+ microservices, a shared distributed cache is necessary to ensure consistency across service instances.
 
 **Current implementation:**
-- **StackExchange.Redis** (v2.8.31) via `Core.Cache` shared library
+- **StackExchange.Redis** (v2.10.1) via `Core.Cache` shared library
 - `RedisCacheService` implements `ICacheService` with `GetAsync`, `SetAsync`, `DeleteAsync`, `ExistsAsync`
 - **JSON serialization**: System.Text.Json for cache value serialization
 - **Per-service key prefixing**: `CacheSettings.CacheKeyPrefix` (e.g., `"user_permissions_"`) prevents key collisions

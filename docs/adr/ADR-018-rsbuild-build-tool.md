@@ -36,7 +36,7 @@ We selected **RSBuild** (powered by Rspack) as the build tool:
 **Positive:**
 - Significantly faster builds than webpack (Rust-based bundling)
 - Webpack plugin compatibility reduces migration friction
-- Minimal configuration (`rsbuild.config.mts` is ~50 lines vs hundreds for webpack)
+- Minimal configuration (`rsbuild.config.mts` is ~28 lines vs hundreds for webpack)
 - Built-in React Fast Refresh and TypeScript support
 - Good balance between Vite's speed and webpack's ecosystem
 

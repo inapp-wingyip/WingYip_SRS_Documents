@@ -2,7 +2,7 @@
 
 > **Purpose**: Index of all original source documents referenced throughout the WingYip SRS knowledge base.
 > **Note**: These documents originate from Google Drive and are the authoritative source for `.docx`, `.xlsx`, `.rpt`, and other binary formats referenced in markdown files.
-> **Location**: `WingYip_SRS_Documents/drive_raw/`
+> **Location**: `Google Drive:/WingYip SRS Source Documents/`
 
 ---
 
@@ -125,7 +125,7 @@ These files are maintained in the WingYip Google Drive. To request access or obt
 
 1. Contact the WingYip Project Management Office (PMO)
 2. Request access to the shared Google Drive folder: `WingYip SRS Source Documents`
-3. Download and place files in `WingYip_SRS_Documents/drive_raw/` to enable local cross-references
+3. Download and place files in `Google Drive:/WingYip SRS Source Documents/` to enable local cross-references
 
 ---
 

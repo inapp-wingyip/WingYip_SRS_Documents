@@ -1,0 +1,45 @@
+---
+description: Mobile conventions for React Native Android handheld app
+globs: "**/*.ts,**/*.tsx,**/*.java,**/*.xml"
+alwaysApply: false
+---
+
+# Mobile Conventions (React Native 0.72 - Android)
+
+These rules apply to all files in the React Native handheld application.
+
+## Platform Specifics
+
+- **Android-only**: HHD (Hand Held Device) app. No iOS support.
+- Target Android API levels per project requirements.
+- Use native modules for hardware integration (barcode scanner, printer).
+
+## Component Architecture
+
+- Use **feature-based navigation** with React Navigation.
+- Screens live in `src/screens/<feature>/`.
+- Reusable components in `src/components/`.
+
+## State & Offline
+
+- Use **Zustand** for global state.
+- Implement offline support with local storage sync.
+- Cache API responses for offline fallback.
+
+## Styling
+
+- Use **Tailwind-like utility classes** or StyleSheet.create.
+- Follow Android Material Design guidelines.
+- Support landscape and portrait orientations.
+
+## Testing
+
+- Unit tests: Jest + React Native Testing Library.
+- E2E: Detox or Appium for Android.
+- Test on actual HHD hardware before release.
+
+## References
+
+- [UI Design System](../../WingYip_SRS_Documents/architecture/15-ui-design-system.md)
+- [Frontend & Mobile Architecture](../../WingYip_SRS_Documents/architecture/07-frontend-mobile-architecture.md)
+- [Handheld Security](../../WingYip_SRS_Documents/architecture/07-frontend-mobile-architecture.md)

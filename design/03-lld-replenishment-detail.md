@@ -229,7 +229,7 @@ Store → Aisle → Bay → ReplenGroup
 ## Cross-References
 
 - [Key LLD Summaries](./02-key-llds.md) — High-level LLD overview
-- [Functional Modules — Replenishment](../requirements/02-functional-modules.md#6-core-replenishment) — Business rules
+- `Functional Modules — Replenishment` — Business rules
 - [Didi Store LLDs](./04-lld-didi-store-detail.md) — Didi-specific replenishment
 - [Microservices Design](../architecture/03-microservices-design.md) — CQRS pattern
 - [Workflow Docs](../testing/02-workflow-docs.md) — Process flow diagrams

@@ -1,0 +1,42 @@
+---
+description: Security checklist and OWASP guidelines for all code
+globs: "*"
+alwaysApply: true
+---
+
+# Security Checklist (All Code)
+
+Apply these checks to every code change before requesting review.
+
+## Input Validation
+
+- [ ] All user inputs are validated (length, type, format).
+- [ ] SQL injection prevented via parameterized queries/ORM.
+- [ ] NoSQL injection prevented (MongoDB, Redis, etc.).
+- [ ] XSS prevention: output encoding for all rendered data.
+
+## Authentication & Authorization
+
+- [ ] RBAC checks applied at API boundary.
+- [ ] JWT tokens validated (signature, expiry, issuer).
+- [ ] No hardcoded credentials or secrets in code.
+- [ ] Secrets injected via environment/K8s secrets.
+
+## Data Protection
+
+- [ ] PII/PCI data encrypted at rest and in transit.
+- [ ] Sensitive data not logged (mask in Serilog/ELK).
+- [ ] GDPR compliance: data minimization, right to erasure.
+
+## Infrastructure
+
+- [ ] Network policies restrict pod-to-pod traffic.
+- [ ] Containers run as non-root.
+- [ ] Resource limits set (prevent DoS via resource exhaustion).
+- [ ] Images scanned for vulnerabilities before deploy.
+
+## References
+
+- [Security Standards](../../WingYip_SRS_Documents/architecture/13-security-standards.md)
+- [Authentication & RBAC](../../WingYip_SRS_Documents/architecture/06-authentication-rbac.md)
+- [OWASP Top 10](https://owasp.org/Top10/)

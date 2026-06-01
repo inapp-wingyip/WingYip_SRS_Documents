@@ -2,6 +2,69 @@
 
 > **Cross-repository reference** — Links each WingYip repository to relevant project documentation.
 
+
+---
+
+## AI Native Development
+
+This repository follows the **AI Native Development** methodology. Shared policy lives in the central docs — load only what the current task needs.
+
+### Invariants
+
+1. **No code is written before a spec exists and has been reviewed.** See `../WingYip_SRS_Documents/AI_Native/workflow/sdd-pipeline.md` for exceptions and the full pipeline. If in doubt, treat it as spec-required.
+2. **Every Acceptance Criterion in any `spec.md` must have at least one executable verification artifact that fails when the AC's `THEN` clause is violated.** See `../WingYip_SRS_Documents/AI_Native/workflow/acceptance-criteria.md` for the full policy.
+
+### Router — load docs on demand
+
+| Topic | File | When to read |
+|---|---|---|
+| SDD pipeline & exceptions | `../WingYip_SRS_Documents/AI_Native/workflow/sdd-pipeline.md` | Starting any feature/fix/refactor |
+| Skills catalog | `../WingYip_SRS_Documents/AI_Native/workflow/skills-catalog.md` | Choosing which skill to invoke |
+| OpenSpec artifacts & delta-spec rules | `../WingYip_SRS_Documents/AI_Native/workflow/openspec-artifacts.md` | Creating, validating, or archiving a change |
+| AC verification policy | `../WingYip_SRS_Documents/AI_Native/workflow/acceptance-criteria.md` | Writing or reviewing ACs |
+| Microservice patterns & defaults | `../WingYip_SRS_Documents/AI_Native/architecture/microservice-patterns.md` | Writing specs touching service boundaries |
+| ADR discipline | `../WingYip_SRS_Documents/AI_Native/architecture/adr-discipline.md` | Proposing, superseding, or enforcing an ADR |
+| Coding standards & commits | `../WingYip_SRS_Documents/AI_Native/standards/coding-standards.md` | Implementing tasks, writing tests, preparing commits |
+| Context hygiene | `../WingYip_SRS_Documents/AI_Native/agents/context-hygiene.md` | Running multi-step skill chains |
+| Guardrails (NOT-to-do + escalation) | `../WingYip_SRS_Documents/AI_Native/agents/guardrails.md` | Before irreversible actions or when uncertain |
+
+### Conflict resolution
+
+When instructions disagree, apply this precedence (highest wins):
+
+```
+ADR > PROJECT.md > AGENTS.md (this file) > docs/ > ../WingYip_SRS_Documents/AI_Native/
+```
+
+### When in doubt
+
+Ask the user. Do not assume. Escalation triggers are in `../WingYip_SRS_Documents/AI_Native/agents/guardrails.md`.
+
+### Cross-Platform AI-Native Setup
+
+All active service repos support **OpenCode**, **Claude Code**, **Cursor**, and **GitHub Copilot** with stack-specific configurations. Legacy and Artifacts repos are excluded.
+
+| Platform | Config Location | Files |
+|---|---|---|
+| **OpenCode** | `.opencode/skills/` | 21 reusable skills |
+| **Claude Code** | `.claude/` | Skills + commands |
+| **Cursor** | `.cursor/rules/*.mdc` | Stack-specific rules (alwaysApply + globs) |
+| **Copilot** | `.github/copilot-instructions.md` | Repo-wide + `.github/instructions/*.md` stack rules |
+| **VS Code** | `.vscode/settings.json` | Monorepo-optimized workspace settings |
+
+**Stack-specific rules:**
+- `backend` → `.cursor/rules/10-backend-conventions.mdc`, `.github/instructions/backend.instructions.md`
+- `frontend` → `.cursor/rules/11-frontend-conventions.mdc`, `.github/instructions/frontend.instructions.md`
+- `mobile` → `.cursor/rules/12-mobile-conventions.mdc`, `.github/instructions/mobile.instructions.md`
+- `devops` → `.cursor/rules/13-devops-conventions.mdc`, `.github/instructions/devops.instructions.md`
+- `data-engineering` → `.cursor/rules/14-data-engineering-conventions.mdc`, `.github/instructions/data-engineering.instructions.md`
+
+All stacks share: `00-sdd-invariants.mdc` + `20-security-checklist.mdc`.
+
+**Installer:** `WingYip_SRS_AI_Native/install.ps1 --platform all|cursor|copilot|opencode|claude`
+
+---
+
 ---
 
 ## Repository Ecosystem
@@ -9,7 +72,7 @@
 ```
 C:\Projects\WingYip\
 ├── WingYip_SRS_Documents/               ← YOU ARE HERE (Knowledge Hub)
-├── WingYip_Legacy/             ← Legacy monolith (ASP.NET MVC + EF Core)
+├── WingYip_Legacy/             ← Legacy monolith — READ-ONLY reference archive (not part of active development)
 ├── WingYip_SRS_Artifacts/       ← Shared artifacts
 ├── WingYip_SRS_BE_EcoSystem/   ← Backend microservices (14 services: 11 API + 3 engines)
 ├── WingYip_SRS_FE_EcoSystem/   ← Frontend web application (React + RSBuild — active code on `development`)
@@ -65,15 +128,15 @@ C:\Projects\WingYip\
 | Administration | [RBAC](architecture/06-authentication-rbac.md), [Admin LLDs](design/05-lld-admin-storeops-detail.md) |
 | Authentication | [Auth/SSO Architecture](architecture/06-authentication-rbac.md) |
 | Product | [Product LLDs](design/06-lld-product-warehouse-detail.md) |
-| Spaceman | [Product LLDs](design/06-lld-product-warehouse-detail.md), [BRD Planogram](requirements/02-functional-modules.md#2-store-layout--planogram-spaceman) |
+| Spaceman | [Product LLDs](design/06-lld-product-warehouse-detail.md), `BRD Planogram` |
 | Replenishment | [Replenishment LLDs](design/03-lld-replenishment-detail.md), [Workflow Docs](testing/02-workflow-docs.md) |
-| BulkReplenishmentEngine | [Replenishment LLDs → Bulk](design/03-lld-replenishment-detail.md#6-bulk-replenishment--pallet) |
+| BulkReplenishmentEngine | `Replenishment LLDs → Bulk` |
 | DidiReplenishmentEngine | [Didi LLDs](design/04-lld-didi-store-detail.md) |
-| FreshGoodsReplenishmentEngine | [FRD Fresh Goods](requirements/04-frd-summaries.md#2-fresh-good-replenishment-frd) |
-| StockControl | [Stock Control Modules](requirements/02-functional-modules.md#9-stock-control--discrepancy) |
-| StoreOperations | [Store Walk LLD](design/03-lld-replenishment-detail.md#4-low--no-stock--sales-replenishment--background-process) |
+| FreshGoodsReplenishmentEngine | `FRD Fresh Goods` |
+| StockControl | `Stock Control Modules` |
+| StoreOperations | `Store Walk LLD` |
 | Print | [SEL Printing Detail](architecture/09-sel-printing-detail.md) |
-| Audit | [Admin LLDs → Centralized Auditing](design/05-lld-admin-storeops-detail.md#centralized-auditing-library) |
+| Audit | `Admin LLDs → Centralized Auditing` |
 | Bronze | [Data Flow](architecture/05-data-flow.md), [DE Workflow](data-engineering/01-data-workflow.md) |
 | GenericProcessEngine/ReportEngine | [FRD Summaries](requirements/04-frd-summaries.md) |
 
@@ -109,12 +172,12 @@ C:\Projects\WingYip\
 **Per Feature:**
 | Feature | Key Docs |
 |---------|----------|
-| Store Walk | [Store Walk LLD](design/03-lld-replenishment-detail.md#4-low--no-stock--sales-replenishment--background-process), [Functional Spec](requirements/02-functional-modules.md#5-store-operations-store-walk) |
-| Replenishment Picking | [Picking Workflow](design/03-lld-replenishment-detail.md#5-stock-replenishment--picking-workflow) |
-| Bulk Replenishment | [Bulk Replenishment](design/03-lld-replenishment-detail.md#6-bulk-replenishment--pallet) |
-| Didi Operations | [Didi LLDs](design/04-lld-didi-store-detail.md), [Emergency Order](design/04-lld-didi-store-detail.md#3-emergency-order) |
+| Store Walk | `Store Walk LLD`, `Functional Spec` |
+| Replenishment Picking | `Picking Workflow` |
+| Bulk Replenishment | `Bulk Replenishment` |
+| Didi Operations | [Didi LLDs](design/04-lld-didi-store-detail.md), `Emergency Order` |
 | SEL Printing | [SEL Printing Detail](architecture/09-sel-printing-detail.md) |
-| Notifications | [Notifications](design/05-lld-admin-storeops-detail.md#notifications-configuration) |
+| Notifications | `Notifications` |
 
 **Project-Level Architecture Docs:** [UI Design System](architecture/15-ui-design-system.md) (Android HHD arch, design principles), [Workflows](architecture/16-workflow-business-process.md) (all replenishment flows), [API & Events](architecture/17-api-event-contracts.md) (WebSocket channels, REST endpoints), [Performance](architecture/18-performance-caching-concurrency.md) (offline support, response targets).
 

@@ -78,4 +78,4 @@
 
 - [Test Scenarios](./01-test-scenarios.md) — Full test inventory
 - [Replenishment LLDs](../design/03-lld-replenishment-detail.md) — Design specifications
-- [Functional Modules — Replenishment](../requirements/02-functional-modules.md#6-core-replenishment) — Business rules
+- `Functional Modules — Replenishment` — Business rules

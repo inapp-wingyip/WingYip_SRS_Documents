@@ -1,0 +1,54 @@
+---
+description: Universal SDD invariants that apply to all code across all repos
+globs: "*"
+alwaysApply: true
+---
+
+# WingYip SDD Invariants (Non-Negotiable)
+
+These rules apply to every file, every edit, every AI-assisted operation in this repository.
+
+## 1. No Code Without Spec
+
+- Before generating any implementation, reference the relevant spec document.
+- If no spec exists, refuse to generate code and ask the user to create one.
+- Specs live in `../WingYip_SRS_Documents/` or `./docs/specs/`.
+- Always include the spec path in commit messages and PR descriptions.
+
+## 2. Every AC Needs Verification
+
+- Every Acceptance Criterion (AC) in a spec must have at least one executable verification artifact (test, script, or validated output).
+- If an AC lacks verification, flag it and suggest a test skeleton.
+- Use Gherkin syntax (`Given/When/Then`) for ACs.
+
+## 3. Spec-First Workflow
+
+- Read the spec before writing code.
+- Validate the spec against existing architecture docs.
+- Update the spec if implementation reveals gaps.
+
+## 4. Build & Validate Before Commit
+
+- Run the appropriate build and test commands locally before committing:
+  - Backend: `dotnet build && dotnet test`
+  - Frontend: `npm run lint && npm test`
+  - Mobile: `npm run lint && npm test`
+  - Data Engineering: Validate SSIS packages and SQL scripts
+  - Infrastructure: `kubectl apply --dry-run=client` or equivalent
+- Never commit code that fails local validation.
+
+## 5. Reference External Docs
+
+- Do not duplicate policy text in this file.
+- Reference canonical documentation:
+  - [SDD Pipeline](../WingYip_SRS_Documents/AI_Native/workflow/sdd-pipeline.md)
+  - [Acceptance Criteria Policy](../WingYip_SRS_Documents/AI_Native/workflow/acceptance-criteria.md)
+  - [OpenSpec Config](../WingYip_SRS_Documents/AI_Native/openspec/config.yaml)
+  - [Guardrails](../WingYip_SRS_Documents/AI_Native/agents/guardrails.md)
+
+## Conflict Resolution
+
+When instructions disagree, apply this precedence (highest wins):
+```
+ADR > PROJECT.md > AGENTS.md > Platform-specific rules > docs/ > ../WingYip_SRS_Documents/AI_Native/
+```

@@ -1,0 +1,51 @@
+---
+description: .NET backend conventions for CQRS, EF Core, and microservices
+globs: "**/*.cs,**/*.csproj,**/*.sln"
+alwaysApply: false
+---
+
+# Backend Conventions (.NET 8 Microservices)
+
+These rules apply to all C# files in backend services.
+
+## Architecture Patterns
+
+- **CQRS**: Separate Commands (write) and Queries (read).
+  - Commands go to `*.Commands/` folders.
+  - Queries go to `*.Queries/` folders.
+- **MediatR**: Use MediatR for in-process messaging between handlers.
+- **AutoMapper**: Use AutoMapper for DTO/Entity mapping. Validate mappings with unit tests.
+
+## Database & EF Core
+
+- **Database-first**: EF Core entities are generated from the database schema.
+- Never manually edit entity classes without updating the DB model first.
+- Use migrations for schema changes. Document in ADR if breaking.
+- Connection strings come from environment config (K8s secrets/AppSettings).
+
+## API Design
+
+- Every controller action must reference its API spec.
+- Use REST conventions: `GET` for queries, `POST` for commands.
+- Version APIs in path: `/api/v1/...`.
+- Return consistent response envelopes.
+
+## Cross-Cutting Concerns
+
+- Use the **Core shared library** for reusable utilities.
+- Implement centralized logging with Serilog.
+- Include correlation IDs for distributed tracing.
+- Apply RBAC checks at the API gateway level.
+
+## Testing
+
+- Unit tests: xUnit + Moq + FluentAssertions.
+- Integration tests: TestServer with in-memory DB or dockerized SQL.
+- Every AC needs a test. Every test must fail if the AC is violated.
+
+## References
+
+- [Microservices Design](../../WingYip_SRS_Documents/architecture/03-microservices-design.md)
+- [Database Schema](../../WingYip_SRS_Documents/architecture/08-database-schema.md)
+- [Coding Standards](../../WingYip_SRS_Documents/architecture/11-coding-standards.md)
+- [Service Communication](../../WingYip_SRS_Documents/architecture/04-service-communication.md)

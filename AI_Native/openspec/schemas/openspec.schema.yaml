@@ -1,0 +1,34 @@
+# OpenSpec Schema Registry — WingYip AI Native
+#
+# This file is the schema entrypoint. It declares which schemas are available
+# and which one is active. The active schema's full definition lives under
+# the named subdirectory.
+#
+# To switch schemas, change `schema:` in config.yaml to another entry below.
+
+schema: spec-driven-verified
+
+available_schemas:
+  - name: spec-driven-verified
+    path: spec-driven-verified/schema.yaml
+    description: >
+      Spec-driven workflow with ADRs and a mandatory verification plan.
+      Pipeline: proposal → specs → design → adr → verification → tasks.
+      verification.md is a gate artifact — the change cannot be archived
+      until the Evidence Log is complete and the Audit Record is signed off
+      by a human reviewer.
+    version: 1
+    artifacts:
+      - proposal
+      - specs
+      - design
+      - adr
+      - verification
+      - tasks
+    apply_requires:
+      - tasks
+
+# Schema selection rules:
+# - Only ONE schema may be active per project.
+# - The active schema is declared in openspec/config.yaml under the `schema:` key.
+# - Schema files MUST NOT be edited after a change has been archived using them.

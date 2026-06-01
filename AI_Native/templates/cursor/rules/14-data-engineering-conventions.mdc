@@ -1,0 +1,49 @@
+---
+description: Data engineering conventions for SSIS, SQL, and medallion architecture
+globs: "**/*.sql,**/*.dtsx,**/*.dtproj,**/*.ps1"
+alwaysApply: false
+---
+
+# Data Engineering Conventions (SSIS + Bronze/Silver)
+
+These rules apply to all ETL, SQL, and data pipeline files.
+
+## Architecture
+
+- Follow **Bronze-Silver-Gold medallion architecture**.
+  - **Bronze**: Raw ingestion from source systems (SAP, Korber, OpSuite).
+  - **Silver**: Cleaned, validated, conformed data.
+  - **Gold**: Aggregated, business-ready data marts.
+
+## SSIS Packages
+
+- Use **project deployment model**.
+- Organize packages by source system and layer.
+- Include logging and error handling in every package.
+- Use environment variables for connection strings.
+
+## SQL Conventions
+
+- Use **snake_case** for table and column names.
+- Include primary keys and indexes for performance.
+- Document table schemas in `docs/DATABASE_SCHEMA.md`.
+- Use transactions for multi-step operations.
+
+## ETL Standards
+
+- Validate data quality at Bronze → Silver transition.
+- Reject bad rows to quarantine tables.
+- Include row counts and timestamps in audit logs.
+- Schedule jobs via SQL Agent or orchestrator.
+
+## Testing
+
+- Validate data counts before and after ETL.
+- Compare sample rows against source system.
+- Run full pipeline in staging before production.
+
+## References
+
+- [Data Workflow](../../WingYip_SRS_Documents/data-engineering/01-data-workflow.md)
+- [SSIS Pipeline Catalog](../../WingYip_SRS_Documents/data-engineering/03-ssis-pipeline-catalog.md)
+- [Data Migration](../../WingYip_SRS_Documents/data-engineering/02-data-migration.md)

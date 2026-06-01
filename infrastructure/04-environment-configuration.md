@@ -159,7 +159,7 @@ Every microservice requires these configuration categories:
 
 ## Cross-References
 
-- [On-Premise Architecture](./02-enterprise-onprem.md) — Network, security layers, connectivity
+- `On-Premise Architecture` — Network, security layers, connectivity
 - [DevOps Deployment](../infrastructure/02-devops-deployment.md) — Jenkins, ArgoCD, CI/CD
-- [Security Standards](./13-security-standards.md) — Security architecture
-- [Coding Standards](./11-coding-standards.md) — BE repo implementation docs
+- `Security Standards` — Security architecture
+- `Coding Standards` — BE repo implementation docs

@@ -1,0 +1,20 @@
+{
+  "github.copilot.chat.codeGeneration.useInstructionFiles": true,
+  "chat.useAgentsMdFile": true,
+  "chat.useClaudeMdFile": true,
+  "chat.useCustomizationsInParentRepositories": true,
+  "chat.promptFiles": true,
+  "chat.agent.enabled": true,
+  "chat.subagents.enabled": true,
+  "chat.checkpoints.enabled": true,
+  "chat.checkpoints.showFileChanges": true,
+  "github.copilot.chat.codesearch.enabled": true,
+  "chat.instructionsFilesLocations": {
+    ".github/instructions": true,
+    ".claude/rules": true
+  },
+  "chat.editing.confirmEditRequestRemoval": true,
+  "chat.editing.confirmEditRequestRetry": true,
+  "chat.editing.autoAcceptDelay": 0,
+  "chat.tools.terminal.autoReplyToPrompts": false
+}

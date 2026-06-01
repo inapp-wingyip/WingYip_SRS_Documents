@@ -1,0 +1,9 @@
+{
+  "repoName": "WingYip_SRS_Documents",
+  "repoType": "documentation",
+  "stack": "markdown-knowledge-base",
+  "installedAt": "2026-05-31T12:00:57.608611+00:00",
+  "version": "3.0.0",
+  "centralHub": "WingYip_SRS_AI_Native",
+  "installer": "install.py"
+}

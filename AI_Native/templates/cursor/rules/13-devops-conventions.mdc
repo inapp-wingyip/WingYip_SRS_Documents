@@ -1,0 +1,43 @@
+---
+description: DevOps and infrastructure conventions for K8s, ArgoCD, and Jenkins
+globs: "**/*.yaml,**/*.yml,**/*.json,**/Dockerfile*,**/*.tf,**/*.sh"
+alwaysApply: false
+---
+
+# DevOps Conventions (K8s + ArgoCD + Jenkins)
+
+These rules apply to all infrastructure and deployment configurations.
+
+## Kubernetes
+
+- Use **Helm charts** for application deployments.
+- Separate environments: `dev`, `staging`, `production`.
+- Use Kustomize for environment-specific overlays.
+- Resource limits and requests must be defined for all pods.
+
+## ArgoCD
+
+- Applications managed via **App of Apps** pattern.
+- Sync waves for ordered deployments.
+- Enable auto-sync with prune for non-prod.
+- Manual sync required for production.
+
+## CI/CD (Jenkins)
+
+- Pipelines as code: `Jenkinsfile` in repo root.
+- Stages: Build → Test → Security Scan → Package → Deploy.
+- Use shared libraries for common pipeline steps.
+- Store secrets in Jenkins Credentials or external vault.
+
+## Security
+
+- Scan images with Trivy or Clair before deployment.
+- Network policies restrict inter-service traffic.
+- RBAC: Least privilege for service accounts.
+- Secrets managed via External Secrets Operator.
+
+## References
+
+- [DevOps Deployment](../../WingYip_SRS_Documents/infrastructure/02-devops-deployment.md)
+- [On-Prem Architecture](../../WingYip_SRS_Documents/architecture/02-enterprise-onprem.md)
+- [Security Standards](../../WingYip_SRS_Documents/architecture/13-security-standards.md)

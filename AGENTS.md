@@ -40,6 +40,29 @@ ADR > PROJECT.md > AGENTS.md (this file) > docs/ > ../WingYip_SRS_Documents/AI_N
 
 Ask the user. Do not assume. Escalation triggers are in `../WingYip_SRS_Documents/AI_Native/agents/guardrails.md`.
 
+### Cross-Platform AI-Native Setup
+
+All active service repos support **OpenCode**, **Claude Code**, **Cursor**, and **GitHub Copilot** with stack-specific configurations. Legacy and Artifacts repos are excluded.
+
+| Platform | Config Location | Files |
+|---|---|---|
+| **OpenCode** | `.opencode/skills/` | 21 reusable skills |
+| **Claude Code** | `.claude/` | Skills + commands |
+| **Cursor** | `.cursor/rules/*.mdc` | Stack-specific rules (alwaysApply + globs) |
+| **Copilot** | `.github/copilot-instructions.md` | Repo-wide + `.github/instructions/*.md` stack rules |
+| **VS Code** | `.vscode/settings.json` | Monorepo-optimized workspace settings |
+
+**Stack-specific rules:**
+- `backend` → `.cursor/rules/10-backend-conventions.mdc`, `.github/instructions/backend.instructions.md`
+- `frontend` → `.cursor/rules/11-frontend-conventions.mdc`, `.github/instructions/frontend.instructions.md`
+- `mobile` → `.cursor/rules/12-mobile-conventions.mdc`, `.github/instructions/mobile.instructions.md`
+- `devops` → `.cursor/rules/13-devops-conventions.mdc`, `.github/instructions/devops.instructions.md`
+- `data-engineering` → `.cursor/rules/14-data-engineering-conventions.mdc`, `.github/instructions/data-engineering.instructions.md`
+
+All stacks share: `00-sdd-invariants.mdc` + `20-security-checklist.mdc`.
+
+**Installer:** `WingYip_SRS_AI_Native/install.ps1 --platform all|cursor|copilot|opencode|claude`
+
 ---
 
 ---

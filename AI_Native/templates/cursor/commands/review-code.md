@@ -70,6 +70,6 @@ Run the 4-persona AI review council on the current changes.
 
 ## References
 
-- [Reviewer Council](../WingYip_SRS_Documents/AI_Native/agents/reviewer-council.md)
-- [Guardrails](../WingYip_SRS_Documents/AI_Native/agents/guardrails.md)
-- [Skills Catalog](../WingYip_SRS_Documents/AI_Native/workflow/skills-catalog.md)
+- `Reviewer Council`
+- `Guardrails`
+- `Skills Catalog`

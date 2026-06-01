@@ -26,7 +26,7 @@
 
 ## References
 
-- [SDD Pipeline](WingYip_SRS_Documents/AI_Native/workflow/sdd-pipeline.md)
-- [OpenSpec Config](WingYip_SRS_Documents/AI_Native/openspec/config.yaml)
-- [Coding Standards](WingYip_SRS_Documents/architecture/11-coding-standards.md)
-- [Guardrails](WingYip_SRS_Documents/AI_Native/agents/guardrails.md)
+- `SDD Pipeline`
+- `OpenSpec Config`
+- `Coding Standards`
+- `Guardrails`

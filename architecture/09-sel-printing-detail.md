@@ -166,6 +166,6 @@ Source: `SEL_Print Printing Service.docx`, `Queries_SEL_Print.xlsx`
 
 ## Cross-References
 
-- [Functional Modules — SEL](../requirements/02-functional-modules.md#11-shelf-edge-label-printing) — Business rules
+- `Functional Modules — SEL` — Business rules
 - [Microservices Design](../architecture/03-microservices-design.md) — Print service in microservices
 - [Frontend & Mobile](../architecture/07-frontend-mobile-architecture.md) — Web + HHD printing interface

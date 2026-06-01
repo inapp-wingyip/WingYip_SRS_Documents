@@ -128,8 +128,8 @@ Store → Aisle → Bay → Section → Component
 ## Cross-References
 
 - [LLD Index](./01-lld-index.md) — Full LLD inventory
-- [Functional Modules — Product Enquiry](../requirements/02-functional-modules.md#4-product-enquiry) — Business rules
-- [Functional Modules — Store Layout](../requirements/02-functional-modules.md#2-store-layout--planogram-spaceman) — Business rules
-- [Functional Modules — Warehouse](../requirements/02-functional-modules.md#3-warehouse-layout) — Business rules
+- `Functional Modules — Product Enquiry` — Business rules
+- `Functional Modules — Store Layout` — Business rules
+- `Functional Modules — Warehouse` — Business rules
 - [Database Schema](../architecture/08-database-schema.md) — Data entities
 - [BE_EcoSystem docs](../../WingYip_SRS_BE_EcoSystem/docs/) — Code-level documentation

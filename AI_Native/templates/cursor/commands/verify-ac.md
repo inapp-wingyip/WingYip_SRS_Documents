@@ -41,5 +41,5 @@ Verify that all Acceptance Criteria in a spec have matching test coverage.
 
 ## References
 
-- [Acceptance Criteria Policy](../WingYip_SRS_Documents/AI_Native/workflow/acceptance-criteria.md)
-- [Testing Strategy](../WingYip_SRS_Documents/testing/04-testing-strategy.md)
+- `Acceptance Criteria Policy`
+- `Testing Strategy`

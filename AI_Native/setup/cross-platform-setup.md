@@ -288,7 +288,7 @@ alwaysApply: <true|false>
 
 # Rule content
 - Bullet-point instructions
-- Reference external docs: [SDD Pipeline](../WingYip_SRS_Documents/AI_Native/workflow/sdd-pipeline.md)
+- Reference external docs: [SDD Pipeline](../workflow/sdd-pipeline.md)
 ```
 
 **Precedence** (Cursor internal): Team Rules > Project Rules > User Rules > Legacy > AGENTS.md
@@ -321,8 +321,8 @@ Generate a new OpenSpec feature specification from a user description.
 4. Save to `docs/specs/<feature>.spec.md`
 
 ## References
-- [SDD Pipeline](../WingYip_SRS_Documents/AI_Native/workflow/sdd-pipeline.md)
-- [OpenSpec Templates](../WingYip_SRS_Documents/AI_Native/openspec/templates/)
+- [SDD Pipeline](../workflow/sdd-pipeline.md)
+- [OpenSpec Templates](../openspec/templates)
 ```
 
 **Proposed commands**:
@@ -362,9 +362,9 @@ Generate a new OpenSpec feature specification from a user description.
 - Documentation: `WingYip_SRS_Documents/` (SRS, LLD, BRD, ADR)
 
 ## References
-- [SDD Pipeline](WingYip_SRS_Documents/AI_Native/workflow/sdd-pipeline.md)
-- [OpenSpec Config](WingYip_SRS_Documents/AI_Native/openspec/config.yaml)
-- [Coding Standards](WingYip_SRS_Documents/architecture/11-coding-standards.md)
+- [SDD Pipeline](../workflow/sdd-pipeline.md)
+- [OpenSpec Config](../openspec/config.yaml)
+- `Coding Standards`
 ```
 
 ### 5.4 Copilot Path-Specific Instructions (`.github/instructions/*.md`)
@@ -382,7 +382,7 @@ name: "Backend SDD Rules"
 - Use CQRS: Commands → `*.Commands/`, Queries → `*.Queries/`.
 - EF Core entities are database-first — never edit without updating the DB model.
 - Cross-cutting concerns go to Core shared library (`../Core/`).
-- Follow [Coding Standards](../../WingYip_SRS_Documents/architecture/11-coding-standards.md).
+- Follow `Coding Standards`.
 ```
 
 ### 5.5 Copilot Custom Agents (`.github/agents/*.md`)

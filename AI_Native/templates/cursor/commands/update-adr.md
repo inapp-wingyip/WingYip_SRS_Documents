@@ -36,6 +36,6 @@ Create or update an Architecture Decision Record (ADR).
 
 ## References
 
-- [ADR Discipline](../WingYip_SRS_Documents/AI_Native/architecture/adr-discipline.md)
-- [ADR Template](../WingYip_SRS_Documents/AI_Native/openspec/templates/adr.md)
-- [Existing ADRs](../WingYip_SRS_Documents/docs/adr/)
+- `ADR Discipline`
+- `ADR Template`
+- `Existing ADRs`

@@ -128,15 +128,15 @@ C:\Projects\WingYip\
 | Administration | [RBAC](architecture/06-authentication-rbac.md), [Admin LLDs](design/05-lld-admin-storeops-detail.md) |
 | Authentication | [Auth/SSO Architecture](architecture/06-authentication-rbac.md) |
 | Product | [Product LLDs](design/06-lld-product-warehouse-detail.md) |
-| Spaceman | [Product LLDs](design/06-lld-product-warehouse-detail.md), [BRD Planogram](requirements/02-functional-modules.md#2-store-layout--planogram-spaceman) |
+| Spaceman | [Product LLDs](design/06-lld-product-warehouse-detail.md), `BRD Planogram` |
 | Replenishment | [Replenishment LLDs](design/03-lld-replenishment-detail.md), [Workflow Docs](testing/02-workflow-docs.md) |
-| BulkReplenishmentEngine | [Replenishment LLDs → Bulk](design/03-lld-replenishment-detail.md#6-bulk-replenishment--pallet) |
+| BulkReplenishmentEngine | `Replenishment LLDs → Bulk` |
 | DidiReplenishmentEngine | [Didi LLDs](design/04-lld-didi-store-detail.md) |
-| FreshGoodsReplenishmentEngine | [FRD Fresh Goods](requirements/04-frd-summaries.md#2-fresh-good-replenishment-frd) |
-| StockControl | [Stock Control Modules](requirements/02-functional-modules.md#9-stock-control--discrepancy) |
-| StoreOperations | [Store Walk LLD](design/03-lld-replenishment-detail.md#4-low--no-stock--sales-replenishment--background-process) |
+| FreshGoodsReplenishmentEngine | `FRD Fresh Goods` |
+| StockControl | `Stock Control Modules` |
+| StoreOperations | `Store Walk LLD` |
 | Print | [SEL Printing Detail](architecture/09-sel-printing-detail.md) |
-| Audit | [Admin LLDs → Centralized Auditing](design/05-lld-admin-storeops-detail.md#centralized-auditing-library) |
+| Audit | `Admin LLDs → Centralized Auditing` |
 | Bronze | [Data Flow](architecture/05-data-flow.md), [DE Workflow](data-engineering/01-data-workflow.md) |
 | GenericProcessEngine/ReportEngine | [FRD Summaries](requirements/04-frd-summaries.md) |
 
@@ -172,12 +172,12 @@ C:\Projects\WingYip\
 **Per Feature:**
 | Feature | Key Docs |
 |---------|----------|
-| Store Walk | [Store Walk LLD](design/03-lld-replenishment-detail.md#4-low--no-stock--sales-replenishment--background-process), [Functional Spec](requirements/02-functional-modules.md#5-store-operations-store-walk) |
-| Replenishment Picking | [Picking Workflow](design/03-lld-replenishment-detail.md#5-stock-replenishment--picking-workflow) |
-| Bulk Replenishment | [Bulk Replenishment](design/03-lld-replenishment-detail.md#6-bulk-replenishment--pallet) |
-| Didi Operations | [Didi LLDs](design/04-lld-didi-store-detail.md), [Emergency Order](design/04-lld-didi-store-detail.md#3-emergency-order) |
+| Store Walk | `Store Walk LLD`, `Functional Spec` |
+| Replenishment Picking | `Picking Workflow` |
+| Bulk Replenishment | `Bulk Replenishment` |
+| Didi Operations | [Didi LLDs](design/04-lld-didi-store-detail.md), `Emergency Order` |
 | SEL Printing | [SEL Printing Detail](architecture/09-sel-printing-detail.md) |
-| Notifications | [Notifications](design/05-lld-admin-storeops-detail.md#notifications-configuration) |
+| Notifications | `Notifications` |
 
 **Project-Level Architecture Docs:** [UI Design System](architecture/15-ui-design-system.md) (Android HHD arch, design principles), [Workflows](architecture/16-workflow-business-process.md) (all replenishment flows), [API & Events](architecture/17-api-event-contracts.md) (WebSocket channels, REST endpoints), [Performance](architecture/18-performance-caching-concurrency.md) (offline support, response targets).
 

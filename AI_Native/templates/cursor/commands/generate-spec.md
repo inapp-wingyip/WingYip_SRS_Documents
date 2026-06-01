@@ -42,6 +42,6 @@ Generate a new OpenSpec feature specification from a user description.
 
 ## References
 
-- [SDD Pipeline](../WingYip_SRS_Documents/AI_Native/workflow/sdd-pipeline.md)
-- [OpenSpec Templates](../WingYip_SRS_Documents/AI_Native/openspec/templates/)
-- [Spec Format Guide](../WingYip_SRS_Documents/AI_Native/openspec/templates/spec.md)
+- `SDD Pipeline`
+- `OpenSpec Templates`
+- `Spec Format Guide`

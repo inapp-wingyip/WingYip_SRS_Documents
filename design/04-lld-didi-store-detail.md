@@ -192,7 +192,7 @@
 
 ## Cross-References
 
-- [Functional Modules — Didi Store](../requirements/02-functional-modules.md#14-didi-store-operations) — Business rules
+- `Functional Modules — Didi Store` — Business rules
 - [Replenishment LLDs](./03-lld-replenishment-detail.md) — Core replenishment design
 - [Deployment Strategy](../infrastructure/01-deployment-strategy.md) — Didi go-live plan
 - [Key LLD Summaries](./02-key-llds.md) — Overview

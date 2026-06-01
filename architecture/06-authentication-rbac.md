@@ -194,5 +194,5 @@ The SRS uses a **dual authentication model** — Windows AD for web users, Keycl
 - [Technical Architecture](./01-technical-architecture.md) — Overall tech stack
 - [On-Premise Architecture](./02-enterprise-onprem.md) — Security layers
 - [Microservices Design](./03-microservices-design.md) — Auth service in microservices
-- [RBAC Functional Spec](../requirements/02-functional-modules.md#1-user-management--rbac) — Detailed functional rules
+- `RBAC Functional Spec` — Detailed functional rules
 - [BRD Summary](../requirements/01-brd-summary.md) — Business rules for RBAC

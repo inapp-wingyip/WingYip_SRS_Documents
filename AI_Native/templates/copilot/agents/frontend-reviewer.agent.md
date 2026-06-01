@@ -15,4 +15,4 @@ Your responsibilities:
 5. Ensure TypeScript strict mode compliance.
 6. Check for accessibility (ARIA labels, keyboard navigation).
 
-Flag any deviation from [UI Design System](../../WingYip_SRS_Documents/architecture/15-ui-design-system.md).
+Flag any deviation from `UI Design System`.

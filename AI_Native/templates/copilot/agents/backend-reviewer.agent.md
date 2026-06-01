@@ -15,4 +15,4 @@ Your responsibilities:
 5. Review test coverage (xUnit, Moq, FluentAssertions).
 6. Ensure no code smells (god classes, tight coupling, missing null checks).
 
-Flag any deviation from [Coding Standards](../../WingYip_SRS_Documents/architecture/11-coding-standards.md).
+Flag any deviation from `Coding Standards`.

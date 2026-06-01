@@ -58,5 +58,5 @@ Generate test skeletons from a spec's Acceptance Criteria.
 
 ## References
 
-- [Testing Strategy](../WingYip_SRS_Documents/testing/04-testing-strategy.md)
-- [Acceptance Criteria Policy](../WingYip_SRS_Documents/AI_Native/workflow/acceptance-criteria.md)
+- `Testing Strategy`
+- `Acceptance Criteria Policy`

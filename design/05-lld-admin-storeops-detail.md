@@ -120,8 +120,8 @@
 ## Cross-References
 
 - [Key LLD Summaries](./02-key-llds.md) — High-level LLD overview
-- [Functional Modules — Admin](../requirements/02-functional-modules.md#12-admin-configuration) — Business rules
-- [Functional Modules — SOCO](../requirements/02-functional-modules.md#10-soco-workflow) — Business rules
-- [Functional Modules — Notifications](../requirements/02-functional-modules.md#13-messaging--notifications) — Business rules
+- `Functional Modules — Admin` — Business rules
+- `Functional Modules — SOCO` — Business rules
+- `Functional Modules — Notifications` — Business rules
 - [Authentication & RBAC](../architecture/06-authentication-rbac.md) — RBAC engine
 - [Database Schema](../architecture/08-database-schema.md) — Audit/Logging schema

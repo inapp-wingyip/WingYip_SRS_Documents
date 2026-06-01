@@ -15,4 +15,4 @@ You are a security code reviewer. Your responsibilities:
 
 Flag any security issue as blocking.
 
-Reference: [Security Standards](../../WingYip_SRS_Documents/architecture/13-security-standards.md)
+Reference: `Security Standards`

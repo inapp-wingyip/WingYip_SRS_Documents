@@ -15,32 +15,32 @@ This directory contains all Architecture Decision Records for the WingYip SRS ec
 
 | ADR | Title | Domain | Priority |
 |-----|-------|--------|----------|
-| [ADR-001](ADR-001-microservices-dotnet8.md) | Microservices Architecture with .NET 8 | Backend | — |
+| `ADR-001` | Microservices Architecture with .NET 8 | Backend | — |
 | [ADR-002](ADR-002-database-per-service.md) | Database-Per-Service with SQL Server | Backend | — |
-| [ADR-003](ADR-003-keycloak-active-directory.md) | Keycloak with Active Directory and ADFS | Auth | — |
-| [ADR-004](ADR-004-onpremise-k8s-argocd.md) | On-Premise Kubernetes with ArgoCD GitOps | Infrastructure | — |
+| `ADR-003` | Keycloak with Active Directory and ADFS | Auth | — |
+| `ADR-004` | On-Premise Kubernetes with ArgoCD GitOps | Infrastructure | — |
 | [ADR-005](ADR-005-centralized-audit-enrichment.md) | Centralized Audit Enrichment with Outbox | Backend | — |
 
 ### Security & Compliance (006-008) — CRITICAL
 
 | ADR | Title | Domain | Risk |
 |-----|-------|--------|------|
-| [ADR-006](ADR-006-hashicorp-vault-dev-mode.md) | HashiCorp Vault in Development Mode | Security | Secrets lost on restart |
-| [ADR-007](ADR-007-ssis-sa-password-plaintext.md) | SSIS `sa` Password in Plaintext | Security | Full sysadmin access from Git |
-| [ADR-008](ADR-008-nodeport-service-exposure.md) | NodePort Service Exposure Pattern | Security | Bypasses ingress controls |
+| `ADR-006` | HashiCorp Vault in Development Mode | Security | Secrets lost on restart |
+| `ADR-007` | SSIS `sa` Password in Plaintext | Security | Full sysadmin access from Git |
+| `ADR-008` | NodePort Service Exposure Pattern | Security | Bypasses ingress controls |
 
 ### Backend Architecture (009-015, 026, 030-031, 044-047, 058-059)
 
 | ADR | Title | Domain |
 |-----|-------|--------|
 | [ADR-009](ADR-009-raw-rabbitmq-client.md) | Raw RabbitMQ.Client over MassTransit | Messaging |
-| [ADR-010](ADR-010-dual-messaging-redis-pubsub.md) | Dual Messaging (RabbitMQ + Redis Pub/Sub) | Messaging |
-| [ADR-011](ADR-011-custom-websocket-over-signalr.md) | Custom WebSocket over SignalR | Real-time |
-| [ADR-012](ADR-012-background-processing-quartz.md) | Background Processing (Quartz + BackgroundService) | Jobs |
+| `ADR-010` | Dual Messaging (RabbitMQ + Redis Pub/Sub) | Messaging |
+| `ADR-011` | Custom WebSocket over SignalR | Real-time |
+| `ADR-012` | Background Processing (Quartz + BackgroundService) | Jobs |
 | [ADR-013](ADR-013-dual-json-serializer.md) | Dual JSON Serializer | Serialization |
 | [ADR-014](ADR-014-no-api-versioning.md) | No API Versioning Strategy | API |
 | [ADR-015](ADR-015-missing-observability.md) | Missing Observability | Observability |
-| [ADR-026](ADR-026-redis-distributed-caching.md) | Redis Distributed Caching | Caching |
+| `ADR-026` | Redis Distributed Caching | Caching |
 | [ADR-030](ADR-030-global-exception-handling.md) | Global Exception Handling with Mapped HTTP Status | Error Handling |
 | [ADR-031](ADR-031-cqrs-mediatr-automapper.md) | CQRS with MediatR and AutoMapper | Architecture |
 | [ADR-044](ADR-044-ef-core-as-sole-orm.md) | EF Core 8.0.22 as Sole ORM | Data Access |
@@ -66,7 +66,7 @@ This directory contains all Architecture Decision Records for the WingYip SRS ec
 | [ADR-016](ADR-016-frontend-state-management.md) | Frontend State Management (Zustand + React Query) | State |
 | [ADR-017](ADR-017-feature-based-modules.md) | Feature-Based Module Architecture | Structure |
 | [ADR-018](ADR-018-rsbuild-build-tool.md) | RSBuild as Build Tool | Build |
-| [ADR-028](ADR-028-react-query-default-configuration.md) | React Query Default Configuration | Data Fetching |
+| `ADR-028` | React Query Default Configuration | Data Fetching |
 | [ADR-029](ADR-029-jwt-localstorage-persistence.md) | JWT Token Persistence in localStorage | Security |
 | [ADR-048](ADR-048-frontend-api-client-headless-ui-design-system.md) | Frontend API Client Factory and Headless UI Design System | Client/UX |
 | [ADR-060](ADR-060-frontend-shared-infrastructure.md) | Frontend Shared Infrastructure | Shared |
@@ -76,14 +76,14 @@ This directory contains all Architecture Decision Records for the WingYip SRS ec
 | ADR | Title | Domain |
 |-----|-------|--------|
 | [ADR-019](ADR-019-handheld-state-management.md) | Handheld State Management (Context Only) | State |
-| [ADR-020](ADR-020-react-navigation-custom-tab-bar.md) | React Navigation 6 with Custom Tab Bar | Navigation |
+| `ADR-020` | React Navigation 6 with Custom Tab Bar | Navigation |
 | [ADR-057](ADR-057-handheld-security-hardware-integration.md) | Handheld Security Patterns and Hardware Integration | Security/Hardware |
 
 ### Data Engineering (021, 032-039, 056)
 
 | ADR | Title | Domain |
 |-----|-------|--------|
-| [ADR-021](ADR-021-ssis-pure-orchestrator.md) | SSIS as Pure Orchestrator with SQL Transformations | ETL |
+| `ADR-021` | SSIS as Pure Orchestrator with SQL Transformations | ETL |
 | [ADR-032](ADR-032-bronze-silver-medallion.md) | Bronze/Silver Medallion Architecture | Data Architecture |
 | [ADR-033](ADR-033-sql-agent-scheduling.md) | SQL Agent for SSIS Schedule Orchestration | Scheduling |
 | [ADR-034](ADR-034-ssis-project-deployment.md) | SSIS Project Deployment Model to SSISDB | Deployment |
@@ -98,10 +98,10 @@ This directory contains all Architecture Decision Records for the WingYip SRS ec
 
 | ADR | Title | Domain |
 |-----|-------|--------|
-| [ADR-022](ADR-022-flannel-cni-pod-networking.md) | Flannel CNI for Pod Networking | Networking |
-| [ADR-023](ADR-023-external-secrets-operator-vault.md) | External Secrets Operator with Vault | Secrets |
+| `ADR-022` | Flannel CNI for Pod Networking | Networking |
+| `ADR-023` | External Secrets Operator with Vault | Secrets |
 | [ADR-024](ADR-024-rollingupdate-tcp-probes.md) | RollingUpdate with TCP Socket Probes | Deployment |
-| [ADR-025](ADR-025-allow-all-cors-policy.md) | Allow-All CORS Policy | Security |
+| `ADR-025` | Allow-All CORS Policy | Security |
 | [ADR-049](ADR-049-api-gateway-kubernetes-networking.md) | API Gateway Pattern and Kubernetes Networking | Networking |
 | [ADR-050](ADR-050-jenkins-cicd-pipeline-patterns.md) | Jenkins CI/CD Pipeline Patterns | CI/CD |
 | [ADR-051](ADR-051-argocd-gitops-auto-sync-insecure-mode.md) | ArgoCD GitOps Auto-Sync and Insecure Mode | GitOps |
@@ -121,4 +121,4 @@ The following ADRs document critical security concerns requiring immediate atten
 
 ## Status
 
-All ADRs are currently marked as `Accepted`. They are living documents and may be superseded by future decisions following the ADR discipline defined in [AI_Native/architecture/adr-discipline.md](../AI_Native/architecture/adr-discipline.md).
+All ADRs are currently marked as `Accepted`. They are living documents and may be superseded by future decisions following the ADR discipline defined in [AI_Native/architecture/adr-discipline.md](../../AI_Native/architecture/adr-discipline.md).

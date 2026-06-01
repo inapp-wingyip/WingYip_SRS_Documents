@@ -2,10 +2,10 @@
 
 > **AI Native Project Context**
 > For shared standards, workflows, and agent guidelines, see:
-> - [AI Native Workflow](../../WingYip_SRS_Documents/AI_Native/workflow/)
-> - [Architecture Patterns](../../WingYip_SRS_Documents/AI_Native/architecture/)
-> - [Coding Standards](../../WingYip_SRS_Documents/AI_Native/standards/coding-standards.md)
-> - [Agent Guidelines](../../WingYip_SRS_Documents/AI_Native/agents/)
+> - [AI Native Workflow](AI_Native/workflow)
+> - [Architecture Patterns](AI_Native/architecture)
+> - [Coding Standards](AI_Native/standards/coding-standards.md)
+> - [Agent Guidelines](AI_Native/agents)
 
 ---
 

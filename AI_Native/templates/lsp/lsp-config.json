@@ -1,0 +1,69 @@
+{
+  "version": "1.0.0",
+  "description": "WingYip standard Language Server Protocol (LSP) configurations per tech stack. Install the LSP matching your repo's primary language for optimal AI agent assistance.",
+  "profiles": {
+    "backend": {
+      "language": "C#",
+      "lspName": "csharp-ls",
+      "installCommand": "dotnet tool install -g csharp-ls",
+      "fallbackLsp": "OmniSharp",
+      "fallbackInstallCommand": "dotnet tool install -g OmniSharp",
+      "vscodeExtension": "muhammad-sammy.csharp",
+      "description": "C# language server for .NET 8 microservices. Provides IntelliSense, go-to-definition, diagnostics, and symbol search for CQRS/EF Core codebase."
+    },
+    "frontend": {
+      "language": "TypeScript",
+      "lspName": "typescript-language-server",
+      "installCommand": "npm install -g typescript-language-server",
+      "fallbackLsp": "vtsls",
+      "fallbackInstallCommand": "npm install -g vtsls",
+      "vscodeExtension": "vscode.typescript-language-features",
+      "description": "TypeScript language server for React 19 + RSBuild frontend. Supports JSX, Tailwind CSS class completion, and module resolution."
+    },
+    "mobile": {
+      "language": "TypeScript",
+      "lspName": "typescript-language-server",
+      "installCommand": "npm install -g typescript-language-server",
+      "fallbackLsp": "vtsls",
+      "fallbackInstallCommand": "npm install -g vtsls",
+      "vscodeExtension": "vscode.typescript-language-features",
+      "description": "TypeScript language server for React Native 0.72 Android handheld app. Provides mobile-specific JSX and Metro bundler support."
+    },
+    "devops": {
+      "language": "YAML",
+      "lspName": "yaml-language-server",
+      "installCommand": "npm install -g yaml-language-server",
+      "fallbackLsp": "helm-ls",
+      "fallbackInstallCommand": "go install github.com/mrjosh/helm-ls@latest",
+      "vscodeExtension": "redhat.vscode-yaml",
+      "description": "YAML language server for Kubernetes manifests, ArgoCD applications, Jenkins pipelines, and Ansible playbooks."
+    },
+    "data-engineering": {
+      "language": "SQL",
+      "lspName": "sqls",
+      "installCommand": "go install github.com/lighttiger2505/sqls@latest",
+      "fallbackLsp": "sql-language-server",
+      "fallbackInstallCommand": "npm install -g sql-language-server",
+      "vscodeExtension": "ms-mssql.mssql",
+      "description": "SQL language server for SSIS ETL packages and T-SQL stored procedures in Bronze/Silver medallion architecture."
+    },
+    "python": {
+      "language": "Python",
+      "lspName": "pylsp",
+      "installCommand": "pip install python-lsp-server[all]",
+      "fallbackLsp": "pyright",
+      "fallbackInstallCommand": "npm install -g pyright",
+      "vscodeExtension": "ms-python.python",
+      "description": "Python language server for any Python scripts, data pipelines, or automation tooling in the ecosystem."
+    },
+    "java": {
+      "language": "Java",
+      "lspName": "jdtls",
+      "installCommand": "See https://github.com/eclipse-jdtls/eclipse.jdt.ls",
+      "fallbackLsp": "java-language-server",
+      "fallbackInstallCommand": "See https://github.com/georgewfraser/java-language-server",
+      "vscodeExtension": "redhat.java",
+      "description": "Java language server for any custom Keycloak SPI development or Java-based tooling."
+    }
+  }
+}

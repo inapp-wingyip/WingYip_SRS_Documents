@@ -524,6 +524,50 @@ Within platform-specific rules:
 Copilot path-specific (`.github/instructions/*.md`) > Cursor stack-specific (`.cursor/rules/*.mdc`) > Universal AGENTS.md
 ```
 
+### 7.5 MCP & LSP Integration
+
+#### 7.5.1 Model Context Protocol (MCP) Servers
+
+All active repos include a standard MCP server registry at `.opencode/mcp.json` (installed by `install.ps1`).
+
+**Standard MCP servers** (auto-registered):
+
+| Server | Package | Purpose | Auth Required |
+|---|---|---|---|
+| **atlassian-rovo** | `@atlassian/mcp-remote-rovo` | Jira, Confluence, Compass read/write | `ROVO_MCP_SERVER_URL` + API token |
+| **filesystem** | `@modelcontextprotocol/server-filesystem` | Local file system access | None |
+| **github** | `@modelcontextprotocol/server-github` | Repos, PRs, issues | `GITHUB_TOKEN` |
+
+**Per-repo optional MCP servers** (manual opt-in):
+
+| Repo | Server | Package | Purpose |
+|---|---|---|---|
+| FE_EcoSystem | **playwright** | `@anthropic-ai/mcp-playwright` | Browser automation for testing |
+| DE_EcoSystem | **sqlite** | `@modelcontextprotocol/server-sqlite` | SQL query for pipeline debugging |
+
+**Registry location**: `WingYip_SRS_Documents/AI_Native/templates/mcp/mcp-registry.json`
+**Schema**: `mcp-registry.schema.json`
+
+**Authentication setup** (one-time per developer):
+1. Obtain an Atlassian API token from https://id.atlassian.com/manage-profile/security/api-tokens
+2. Set environment variable: `export ATLASSIAN_API_TOKEN=your_token` (or add to `.env`)
+3. The Rovo MCP server reads the token via `ROVO_AUTH_TYPE=apiToken` (configured in registry)
+
+#### 7.5.2 Language Server Protocol (LSP)
+
+Each repo gets an LSP recommendation at `.opencode/lsp.json` based on its tech stack.
+
+| Stack | Primary LSP | Install Command | VS Code Extension |
+|---|---|---|---|
+| **backend** (.NET) | `csharp-ls` | `dotnet tool install -g csharp-ls` | `muhammad-sammy.csharp` |
+| **frontend** (React/TS) | `typescript-language-server` | `npm install -g typescript-language-server` | Built-in |
+| **mobile** (React Native) | `typescript-language-server` | `npm install -g typescript-language-server` | Built-in |
+| **devops** (K8s/YAML) | `yaml-language-server` | `npm install -g yaml-language-server` | `redhat.vscode-yaml` |
+| **data-engineering** (SSIS/SQL) | `sqls` | `go install github.com/lighttiger2505/sqls@latest` | `ms-mssql.mssql` |
+
+**Config location**: `WingYip_SRS_Documents/AI_Native/templates/lsp/lsp-config.json`
+**Schema**: `lsp-config.schema.json`
+
 ---
 
 ## 8. Quick Start Checklist
@@ -537,6 +581,9 @@ Copilot path-specific (`.github/instructions/*.md`) > Cursor stack-specific (`.c
 - [ ] Install OpenCode CLI (if using OpenCode)
 - [ ] Run `./install.ps1 --platform all` from `WingYip_SRS_AI_Native/installer/`
 - [ ] Verify `.cursor/`, `.github/copilot-instructions.md`, `.vscode/settings.json` exist in active repos
+- [ ] **Install LSP for your stack** (see `.opencode/lsp.json` in each repo)
+- [ ] **Configure MCP auth** — set `ATLASSIAN_API_TOKEN` and `GITHUB_TOKEN` env vars
+- [ ] Verify `.opencode/mcp.json` contains `atlassian-rovo` entry for Jira integration
 - [ ] Open a spec file and test: "Copilot/Cursor/Claude, review this code against the spec"
 
 ### For Maintainers (Updating Templates)
@@ -560,6 +607,8 @@ Copilot path-specific (`.github/instructions/*.md`) > Cursor stack-specific (`.c
 | **Path-specific rules** | N/A | N/A | `globs` in MDC | `applyTo` in `.instructions.md` |
 | **Agent mode** | Built-in | Experimental | Chat with AI | Copilot Agent + subagents |
 | **Monorepo support** | Native | Native | Native | `useCustomizationsInParentRepositories` |
+| **MCP Servers** | `.opencode/mcp.json` | `CLAUDE.md` MCP section | `.cursor/mcp.json` | `.vscode/mcp.json` |
+| **LSP Config** | `.opencode/lsp.json` | `CLAUDE.md` LSP section | Cursor native | VS Code native |
 | **Hooks** | N/A | N/A | N/A | `.github/hooks/*.json` (beta) |
 
 ### B. External References
@@ -569,10 +618,12 @@ Copilot path-specific (`.github/instructions/*.md`) > Cursor stack-specific (`.c
 - [VS Code AI Settings](https://code.visualstudio.com/docs/copilot/customization/custom-instructions)
 - [OpenCode Documentation](https://docs.opencode.ai) *(internal)*
 - [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code) *(internal)*
+- [Atlassian Rovo MCP Server](https://support.atlassian.com/atlassian-rovo-mcp-server/docs/use-atlassian-rovo-mcp-server/)
+- [MCP Registry Schema](https://modelcontextprotocol.io/specification/2025-03-26)
 
 ---
 
-> **Document Status**: DRAFT — Pending user confirmation to proceed with implementation.
+> **Document Status**: ACTIVE — Implementation in progress.
 >
 > **Last Updated**: 2025-06-01
 >

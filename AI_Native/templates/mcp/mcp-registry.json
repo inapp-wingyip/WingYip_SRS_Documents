@@ -1,0 +1,81 @@
+{
+  "version": "1.0.0",
+  "description": "WingYip standard MCP server registry. These servers are recommended for all AI-native development across the monorepo. Register them in your OpenCode/Claude/Cursor/Copilot client configuration.",
+  "servers": {
+    "atlassian-rovo": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@atlassian/mcp-remote-rovo"
+      ],
+      "env": {
+        "ROVO_MCP_SERVER_URL": "https://api.atlassian.com/rovo/api/mcp/sse",
+        "ROVO_AUTH_TYPE": "apiToken"
+      },
+      "description": "Atlassian Rovo MCP Server — provides read/write access to Jira, Confluence, and Compass Cloud data. Supports searching issues, summarizing pages, and bulk-creating content via natural language.",
+      "tags": ["atlassian", "jira", "confluence", "compass", "rovo"],
+      "autoStart": true
+    },
+    "filesystem": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "."
+      ],
+      "description": "Filesystem MCP server — provides read/write access to the local file system. Enables agents to read, search, and modify files within the project workspace.",
+      "tags": ["filesystem", "local", "utility"],
+      "autoStart": true
+    },
+    "github": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${env:GITHUB_TOKEN}"
+      },
+      "description": "GitHub MCP server — provides access to repositories, issues, pull requests, and commits. Requires GITHUB_TOKEN environment variable.",
+      "tags": ["github", "git", "scm"],
+      "autoStart": false
+    }
+  },
+  "perRepo": {
+    "WingYip_SRS_FE_EcoSystem": {
+      "servers": {
+        "playwright": {
+          "type": "stdio",
+          "command": "npx",
+          "args": [
+            "-y",
+            "@anthropic-ai/mcp-playwright"
+          ],
+          "description": "Playwright MCP server — enables browser automation for testing and verification of React web application features.",
+          "tags": ["playwright", "browser", "testing", "frontend"],
+          "autoStart": false
+        }
+      }
+    },
+    "WingYip_SRS_DE_EcoSystem": {
+      "servers": {
+        "sqlite": {
+          "type": "stdio",
+          "command": "npx",
+          "args": [
+            "-y",
+            "@modelcontextprotocol/server-sqlite",
+            "--db-path",
+            "${env:SQLITE_DB_PATH:-./data.db}"
+          ],
+          "description": "SQLite MCP server — provides SQL query capabilities for local data analysis and SSIS pipeline debugging.",
+          "tags": ["sqlite", "sql", "database", "data-engineering"],
+          "autoStart": false
+        }
+      }
+    }
+  }
+}

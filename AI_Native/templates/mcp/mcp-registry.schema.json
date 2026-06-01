@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AI-Native MCP Server Registry",
+  "description": "Configuration schema for Model Context Protocol (MCP) servers used across WingYip AI-native development tooling.",
+  "type": "object",
+  "required": ["version", "servers"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "default": "1.0.0"
+    },
+    "servers": {
+      "type": "object",
+      "description": "Map of MCP server name to its configuration.",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["type", "command"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["stdio", "sse", "http"],
+            "description": "Transport type for the MCP server."
+          },
+          "command": {
+            "type": "string",
+            "description": "Command to launch the MCP server (for stdio type)."
+          },
+          "args": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Arguments passed to the command."
+          },
+          "env": {
+            "type": "object",
+            "description": "Environment variables for the server process.",
+            "additionalProperties": { "type": "string" }
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL for SSE or HTTP transport."
+          },
+          "headers": {
+            "type": "object",
+            "description": "HTTP headers for SSE or HTTP transport.",
+            "additionalProperties": { "type": "string" }
+          },
+          "description": {
+            "type": "string",
+            "description": "Human-readable description of what this MCP server provides."
+          },
+          "tags": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Categorization tags (e.g., jira, atlassian, filesystem)."
+          },
+          "autoStart": {
+            "type": "boolean",
+            "default": true,
+            "description": "Whether the installer should register this server automatically."
+          }
+        }
+      }
+    },
+    "perRepo": {
+      "type": "object",
+      "description": "Repo-specific overrides or additional servers.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "servers": {
+            "type": "object",
+            "description": "Additional or overridden MCP servers for this repo.",
+            "additionalProperties": {
+              "type": "object",
+              "required": ["type", "command"],
+              "properties": {
+                "type": { "type": "string", "enum": ["stdio", "sse", "http"] },
+                "command": { "type": "string" },
+                "args": { "type": "array", "items": { "type": "string" } },
+                "env": { "type": "object", "additionalProperties": { "type": "string" } },
+                "url": { "type": "string", "format": "uri" },
+                "headers": { "type": "object", "additionalProperties": { "type": "string" } },
+                "description": { "type": "string" },
+                "tags": { "type": "array", "items": { "type": "string" } },
+                "autoStart": { "type": "boolean", "default": true }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

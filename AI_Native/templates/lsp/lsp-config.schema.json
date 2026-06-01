@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AI-Native LSP Configuration",
+  "description": "Configuration schema for Language Server Protocol (LSP) settings per tech stack in WingYip AI-native development.",
+  "type": "object",
+  "required": ["version", "profiles"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "default": "1.0.0"
+    },
+    "profiles": {
+      "type": "object",
+      "description": "Named LSP profiles keyed by tech stack identifier.",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["language", "lspName", "installCommand"],
+        "properties": {
+          "language": { "type": "string", "description": "Primary language" },
+          "lspName": { "type": "string", "description": "Name of the LSP binary" },
+          "installCommand": { "type": "string", "description": "Shell command to install the LSP" },
+          "fallbackLsp": { "type": "string", "description": "Alternative LSP if primary is unavailable" },
+          "vscodeExtension": { "type": "string", "description": "Recommended VS Code extension ID" },
+          "description": { "type": "string" }
+        }
+      }
+    }
+  }
+}

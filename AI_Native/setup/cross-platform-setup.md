@@ -524,11 +524,9 @@ Within platform-specific rules:
 Copilot path-specific (`.github/instructions/*.md`) > Cursor stack-specific (`.cursor/rules/*.mdc`) > Universal AGENTS.md
 ```
 
----
+### 7.5 MCP & LSP Integration
 
-## 7.5 MCP & LSP Integration
-
-### 7.5.1 Model Context Protocol (MCP) Servers
+#### 7.5.1 Model Context Protocol (MCP) Servers
 
 All active repos include a standard MCP server registry at `.opencode/mcp.json` (installed by `install.ps1`).
 
@@ -547,7 +545,7 @@ All active repos include a standard MCP server registry at `.opencode/mcp.json` 
 | FE_EcoSystem | **playwright** | `@anthropic-ai/mcp-playwright` | Browser automation for testing |
 | DE_EcoSystem | **sqlite** | `@modelcontextprotocol/server-sqlite` | SQL query for pipeline debugging |
 
-**Registry location**: `WingYip_SRS_Documents/AI_Native/templates/mcp/mcp-registry.json`  
+**Registry location**: `WingYip_SRS_Documents/AI_Native/templates/mcp/mcp-registry.json`
 **Schema**: `mcp-registry.schema.json`
 
 **Authentication setup** (one-time per developer):
@@ -555,7 +553,7 @@ All active repos include a standard MCP server registry at `.opencode/mcp.json` 
 2. Set environment variable: `export ATLASSIAN_API_TOKEN=your_token` (or add to `.env`)
 3. The Rovo MCP server reads the token via `ROVO_AUTH_TYPE=apiToken` (configured in registry)
 
-### 7.5.2 Language Server Protocol (LSP)
+#### 7.5.2 Language Server Protocol (LSP)
 
 Each repo gets an LSP recommendation at `.opencode/lsp.json` based on its tech stack.
 
@@ -567,7 +565,7 @@ Each repo gets an LSP recommendation at `.opencode/lsp.json` based on its tech s
 | **devops** (K8s/YAML) | `yaml-language-server` | `npm install -g yaml-language-server` | `redhat.vscode-yaml` |
 | **data-engineering** (SSIS/SQL) | `sqls` | `go install github.com/lighttiger2505/sqls@latest` | `ms-mssql.mssql` |
 
-**Config location**: `WingYip_SRS_Documents/AI_Native/templates/lsp/lsp-config.json`  
+**Config location**: `WingYip_SRS_Documents/AI_Native/templates/lsp/lsp-config.json`
 **Schema**: `lsp-config.schema.json`
 
 ---
